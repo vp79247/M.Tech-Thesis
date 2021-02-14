@@ -42,9 +42,9 @@ def _init_(args):
         os.makedirs('checkpoints/' + args.exp_name)
     if not os.path.exists('checkpoints/' + args.exp_name + '/' + 'models'):
         os.makedirs('checkpoints/' + args.exp_name + '/' + 'models')
-    os.system('copy main.py checkpoints' + '/' + args.exp_name + '/' + 'main.py.backup')
-    os.system('copy model.py checkpoints' + '/' + args.exp_name + '/' + 'model.py.backup')
-    os.system('copy data.py checkpoints' + '/' + args.exp_name + '/' + 'data.py.backup')
+    os.system('cp main.py checkpoints' + '/' + args.exp_name + '/' + 'main.py.backup')
+    os.system('cp model.py checkpoints' + '/' + args.exp_name + '/' + 'model.py.backup')
+    os.system('cp data.py checkpoints' + '/' + args.exp_name + '/' + 'data.py.backup')
 
 
 def test_one_epoch(args, net, test_loader):
