@@ -402,7 +402,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
 
         textio.cprint('==TRAIN==')
         textio.cprint('A--------->B')
-        print(EPOCH+'Train')
+        print(epoch+'Train')
         textio.cprint('EPOCH:: %d, Loss: %f, Cycle Loss:, %f, MSE: %f, RMSE: %f, MAE: %f, rot_MSE: %f, rot_RMSE: %f, '
                       'rot_MAE: %f, trans_MSE: %f, trans_RMSE: %f, trans_MAE: %f'
                       % (epoch, train_loss, train_cycle_loss, train_mse_ab, train_rmse_ab, train_mae_ab, train_r_mse_ab,
@@ -414,7 +414,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
                          train_r_mae_ba, train_t_mse_ba, train_t_rmse_ba, train_t_mae_ba))
 
         textio.cprint('==TEST==')
-        print(EPOCH+'Test')
+        print(epoch+'Test')
         textio.cprint('A--------->B')
         textio.cprint('EPOCH:: %d, Loss: %f, Cycle Loss: %f, MSE: %f, RMSE: %f, MAE: %f, rot_MSE: %f, rot_RMSE: %f, '
                       'rot_MAE: %f, trans_MSE: %f, trans_RMSE: %f, trans_MAE: %f'
@@ -427,7 +427,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
                          test_r_mae_ba, test_t_mse_ba, test_t_rmse_ba, test_t_mae_ba))
 
         textio.cprint('==BEST TEST==')
-        print(EPOCH+'best test')
+        print(epoch+'best test')
         textio.cprint('A--------->B')
         textio.cprint('EPOCH:: %d, Loss: %f, Cycle Loss: %f, MSE: %f, RMSE: %f, MAE: %f, rot_MSE: %f, rot_RMSE: %f, '
                       'rot_MAE: %f, trans_MSE: %f, trans_RMSE: %f, trans_MAE: %f'
