@@ -124,8 +124,10 @@ class ModelNet40(Dataset):
                euler_ab.astype('float32'), euler_ba.astype('float32')
         DF1=pd.DataFrame(pointcloud1)
         DF2=pd.DataFrame(pointcloud2)
-        DF1.to_csv("pointcloud1")
-        DF2.to_csv("pointcloud2")
+        print('downloading pointcloud1')
+        DF1.to_csv("pointcloud1.csv")
+        print('downloading pointcloud2')
+        DF2.to_csv("pointcloud2.csv")
 
     def __len__(self):
         return self.data.shape[0]
