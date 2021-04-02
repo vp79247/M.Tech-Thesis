@@ -598,14 +598,12 @@ def main():
     
     
     if args.dataset =='modelnet41':
-        train_loader1 = DataLoader(
-            ModelNet41(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
+        train_loader1 = (ModelNet41(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
                        unseen=args.unseen, factor=args.factor),
             batch_size=args.batch_size, shuffle=True, drop_last=True)
         print('modelnet41 running')
         train_loader1
-        test_loader2 = DataLoader(
-            ModelNet41(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
+        test_loader2 =(ModelNet41(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
                        unseen=args.unseen, factor=args.factor),
             batch_size=args.test_batch_size, shuffle=False, drop_last=False)
         train_loader1
