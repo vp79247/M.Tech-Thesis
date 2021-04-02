@@ -602,11 +602,11 @@ def main():
                        unseen=args.unseen, factor=args.factor),
    
         print('modelnet41 running')
-        train_loader1
+       
         test_loader2 =(ModelNet41(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
                        unseen=args.unseen, factor=args.factor),
            
-        train_loader1
+        
         print('modelnet41 running')
     if args.model == 'dcp':
         net = DCP(args).cuda()
