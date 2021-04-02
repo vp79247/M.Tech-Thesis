@@ -598,14 +598,12 @@ def main():
     
     
     if args.dataset =='modelnet41':
-        train_loader1 = DataLoader(
-            ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
-                       unseen=args.unseen, factor=args.factor),
-            batch_size=args.batch_size, shuffle=True, drop_last=True)
-        test_loader2 = DataLoader(
-            ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
-                       unseen=args.unseen, factor=args.factor),
-            batch_size=args.test_batch_size, shuffle=False, drop_last=False)
+        train_loader1 =ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor)
+     
+        test_loader2 =ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor)
+          
         
     if args.model == 'dcp':
         net = DCP(args).cuda()
