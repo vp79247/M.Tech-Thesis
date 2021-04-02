@@ -42,7 +42,7 @@ def load_data(partition):
         all_label.append(label)
     all_data = np.concatenate(all_data, axis=0)
     all_label = np.concatenate(all_label, axis=0)
-    return all_data, all_label
+    return all_data, all_label, print('load_data')
 
 
 def translate_pointcloud(pointcloud):
@@ -50,13 +50,13 @@ def translate_pointcloud(pointcloud):
     xyz2 = np.random.uniform(low=-0.2, high=0.2, size=[3])
 
     translated_pointcloud = np.add(np.multiply(pointcloud, xyz1), xyz2).astype('float32')
-    return translated_pointcloud
+    return translated_pointcloud, print('translate_pointcloud')
 
 
 def jitter_pointcloud(pointcloud, sigma=0.01, clip=0.05):
     N, C = pointcloud.shape
     pointcloud += np.clip(sigma * np.random.randn(N, C), -1 * clip, clip)
-    return pointcloud
+    return pointcloud, print('jitter_pointcloud')
 
 
 class ModelNet40(Dataset):
@@ -131,7 +131,7 @@ class ModelNet40(Dataset):
         
 
     def __len__(self):
-        return self.data.shape[0]
+        return self.data.shape[0], print('modelnet40')
 
 
 if __name__ == '__main__':
