@@ -595,7 +595,19 @@ def main():
             batch_size=args.test_batch_size, shuffle=False, drop_last=False)
     else:
         raise Exception("not implemented")
-
+    
+    
+    if args.dataset =='modelnet41':
+        train_loader1 = DataLoader(
+            ModelNet41(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor),
+            batch_size=args.batch_size, shuffle=True, drop_last=True)
+        print('modelnet41 running')
+        test_loader2 = DataLoader(
+            ModelNet41(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor),
+            batch_size=args.test_batch_size, shuffle=False, drop_last=False)
+        print('modelnet41 running')
     if args.model == 'dcp':
         net = DCP(args).cuda()
         if args.eval:
