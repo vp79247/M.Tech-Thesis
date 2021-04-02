@@ -133,8 +133,77 @@ class ModelNet40(Dataset):
     def __len__(self):
         return self.data.shape[0]
 
+class ModelNet50(Dataset):
+    def __init__(self, num_points, partition='train', gaussian_noise=False, unseen=False, factor=4):
+        self.data, self.label = load_data(partition)
+        self.num_points = num_points
+        self.partition = partition
+        self.gaussian_noise = gaussian_noise
+        self.unseen = unseen
+        self.label = self.label.squeeze()
+        self.factor = factor
+        if self.unseen:
+            ######## simulate testing on first 20 categories while training on last 20 categories
+            if self.partition == 'test':
+                self.data = self.data[self.label>=20]
+                self.label = self.label[self.label>=20]
+            elif self.partition == 'train':
+                self.data = self.data[self.label<20]
+                self.label = self.label[self.label<20]
 
+    def __getitem__(self, item):
+        pointcloud = self.data[item][:self.num_points]
+        if self.gaussian_noise:
+            pointcloud = jitter_pointcloud(pointcloud)
+        if self.partition != 'train':
+            np.random.seed(item)
+        anglex = np.random.uniform() * np.pi / self.factor
+        angley = np.random.uniform() * np.pi / self.factor
+        anglez = np.random.uniform() * np.pi / self.factor
 
+        cosx = np.cos(anglex)
+        cosy = np.cos(angley)
+        cosz = np.cos(anglez)
+        sinx = np.sin(anglex)
+        siny = np.sin(angley)
+        sinz = np.sin(anglez)
+        Rx = np.array([[1, 0, 0],
+                        [0, cosx, -sinx],
+                        [0, sinx, cosx]])
+        Ry = np.array([[cosy, 0, siny],
+                        [0, 1, 0],
+                        [-siny, 0, cosy]])
+        Rz = np.array([[cosz, -sinz, 0],
+                        [sinz, cosz, 0],
+                        [0, 0, 1]])
+        R_ab = Rx.dot(Ry).dot(Rz)
+        R_ba = R_ab.T
+        translation_ab = np.array([np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5),
+                                   np.random.uniform(-0.5, 0.5)])
+        translation_ba = -R_ba.dot(translation_ab)
+
+        pointcloud1 = pointcloud.T
+
+        rotation_ab = Rotation.from_euler('zyx', [anglez, angley, anglex])
+        pointcloud2 = rotation_ab.apply(pointcloud1.T).T + np.expand_dims(translation_ab, axis=1)
+
+        euler_ab = np.asarray([anglez, angley, anglex])
+        euler_ba = -euler_ab[::-1]
+
+        pointcloud1 = np.random.permutation(pointcloud1.T).T
+        pointcloud2 = np.random.permutation(pointcloud2.T).T
+        DF1=pd.DataFrame(pointcloud1)
+        DF2=pd.DataFrame(pointcloud2)
+       
+        DF3=DF1.to_csv("pointcloud1.csv")
+       
+        DF4=DF2.to_csv("pointcloud2.csv")
+
+        return DF3, DF4
+        
+
+    def __len__(self):
+        return self.data.shape[0]
 if __name__ == '__main__':
     train = ModelNet40(1024)
     test = ModelNet40(1024, 'test')
