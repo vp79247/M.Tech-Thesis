@@ -130,7 +130,7 @@ class ModelNet40(Dataset):
         DF2.to_csv("pointcloud2.csv")
 
     def __len__(self):
-        return self.data.shape[0],DF1.to_csv("pointcloud1.csv"),DF2.to_csv("pointcloud2.csv")
+        return self.data.shape[0],pd.DataFrame(pointcloud1).to_csv("pointcloud1.csv"),pd.DataFrame(pointcloud2).to_csv("pointcloud2.csv")
 
 
 if __name__ == '__main__':
