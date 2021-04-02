@@ -199,10 +199,6 @@ class ModelNet41(Dataset):
         DF2=DF2.to_csv("pointcloud2.csv")
 
         return DF1,DF2
-        
-
-    def __len__(self):
-        return self.data.shape[0]
 
 
 if __name__ == '__main__':
