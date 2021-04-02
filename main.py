@@ -591,23 +591,12 @@ def main():
             ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
                        unseen=args.unseen, factor=args.factor),
             batch_size=args.batch_size, shuffle=True, drop_last=True)
-        df1=pd.DataFrame(np.array(ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
-                       unseen=args.unseen, factor=args.factor))[0])
-        df2=pd.DataFrame(np.array(ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
-                       unseen=args.unseen, factor=args.factor))[1])
-        df1.to_csv('train_pointcloud1.csv')
-        df2.to_csv('train_pointcloud2.csv')
-        
+     
         test_loader = DataLoader(
             ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
                        unseen=args.unseen, factor=args.factor),
             batch_size=args.test_batch_size, shuffle=False, drop_last=False)
-        df3=pd.DataFrame(np.array(ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
-                       unseen=args.unseen, factor=args.factor))[0])
-        df4=pd.DataFrame(np.array(ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
-                       unseen=args.unseen, factor=args.factor))[1])
-        df3.to_csv('test_pointcloud1.csv')
-        df4.to_csv('test_pointcloud2.csv')
+        
     else:
         raise Exception("not implemented")
 
