@@ -591,12 +591,15 @@ def main():
             ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
                        unseen=args.unseen, factor=args.factor),
             batch_size=args.batch_size, shuffle=True, drop_last=True)
+        print(ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor))
      
         test_loader = DataLoader(
             ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
                        unseen=args.unseen, factor=args.factor),
             batch_size=args.test_batch_size, shuffle=False, drop_last=False)
-        
+        print(ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor))
     else:
         raise Exception("not implemented")
 
