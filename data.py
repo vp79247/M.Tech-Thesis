@@ -121,14 +121,13 @@ class ModelNet40(Dataset):
         DF1=pd.DataFrame(pointcloud1)
         DF2=pd.DataFrame(pointcloud2)
        
-        DF1.to_csv("pointcloud1.csv")
+        DF1=DF1.to_csv("pointcloud1.csv")
        
-        DF2.to_csv("pointcloud2.csv")
-        return DF1.to_csv("pointcloud1.csv"), DF2.to_csv("pointcloud2.csv")
+        DF2=DF2.to_csv("pointcloud2.csv")
 
         return pointcloud1.astype('float32'), pointcloud2.astype('float32'), R_ab.astype('float32'), \
                translation_ab.astype('float32'), R_ba.astype('float32'), translation_ba.astype('float32'), \
-               euler_ab.astype('float32'), euler_ba.astype('float32')
+               euler_ab.astype('float32'), euler_ba.astype('float32'), DF1, DF2
         
 
     def __len__(self):
