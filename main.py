@@ -76,7 +76,7 @@ def test_one_epoch(args, net, test_loader):
         df1=pd.DataFrame(np.array(src))
         df1.to_csv('pointcloud1.csv')
         df2=pd.DataFrame(np.array(target))
-        df2.to_csv('pointcloud2.csv)
+        df2.to_csv('pointcloud2.csv')
         
         src = src.cuda()
         target = target.cuda()
