@@ -4,6 +4,8 @@
 
 from __future__ import print_function
 import os
+import numpy as np
+import pandas as pd
 import gc
 import argparse
 import torch
@@ -584,14 +586,24 @@ def main():
     textio.cprint(str(args))
 
     if args.dataset == 'modelnet40':
+       
         train_loader = DataLoader(
             ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
                        unseen=args.unseen, factor=args.factor),
             batch_size=args.batch_size, shuffle=True, drop_last=True)
+        df1=pd.DataFrame(np.array(train_loader)[0])
+        df2=pd.DataFrame(np.array(train_loader)[1])
+        df1.to_csv('train_pointcloud1.csv')
+        df2.to_csv('train_pointcloud2.csv')
+        
         test_loader = DataLoader(
             ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
                        unseen=args.unseen, factor=args.factor),
             batch_size=args.test_batch_size, shuffle=False, drop_last=False)
+        df3=pd.DataFrame(np.array(test_loader)[0])
+        df4=pd.DataFrame(np.array(test_loader)[1])
+        df3.to_csv('test_pointcloud1.csv')
+        df4.to_csv('test_pointcloud2.csv')
     else:
         raise Exception("not implemented")
 
