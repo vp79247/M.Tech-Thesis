@@ -583,6 +583,16 @@ def main():
 
     textio = IOStream('checkpoints/' + args.exp_name + '/run.log')
     textio.cprint(str(args))
+    
+    
+    if args.dataset =='modelnet41':
+        train_loader1 =ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor)
+        print('hii vivek')
+     
+        test_loader2 =ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor)
+        print('hii vivek')
 
     if args.dataset == 'modelnet40':
         train_loader = DataLoader(
@@ -596,13 +606,7 @@ def main():
     else:
         raise Exception("not implemented")
     
-    
-    if args.dataset =='modelnet41':
-        train_loader1 =ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
-                       unseen=args.unseen, factor=args.factor)
-     
-        test_loader2 =ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
-                       unseen=args.unseen, factor=args.factor)
+   
           
         
     if args.model == 'dcp':
