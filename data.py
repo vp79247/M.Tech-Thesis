@@ -118,17 +118,18 @@ class ModelNet40(Dataset):
 
         pointcloud1 = np.random.permutation(pointcloud1.T).T
         pointcloud2 = np.random.permutation(pointcloud2.T).T
-
-        return pointcloud1.astype('float32'), pointcloud2.astype('float32'), R_ab.astype('float32'), \
-               translation_ab.astype('float32'), R_ba.astype('float32'), translation_ba.astype('float32'), \
-               euler_ab.astype('float32'), euler_ba.astype('float32')
         DF1=pd.DataFrame(pointcloud1)
         DF2=pd.DataFrame(pointcloud2)
-        print('downloading pointcloud1')
+       
         DF1.to_csv("pointcloud1.csv")
-        print('downloading pointcloud2')
+       
         DF2.to_csv("pointcloud2.csv")
         return DF1.to_csv("pointcloud1.csv"), DF2.to_csv("pointcloud2.csv")
+
+        return DF1.to_csv("pointcloud1.csv"), DF2.to_csv("pointcloud2.csv"),pointcloud1.astype('float32'), pointcloud2.astype('float32'), R_ab.astype('float32'), \
+               translation_ab.astype('float32'), R_ba.astype('float32'), translation_ba.astype('float32'), \
+               euler_ab.astype('float32'), euler_ba.astype('float32')
+        
 
     def __len__(self):
         return self.data.shape[0]
