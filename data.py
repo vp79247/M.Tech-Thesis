@@ -136,11 +136,13 @@ class ModelNet40(Dataset):
 
 if __name__ == '__main__':
     train = ModelNet40(1024)
-    train1=pd.DataFrame(np.array(train))
-    train1.to_csv('train_modelNet40.csv')
+    type(train)
+    #train1=pd.DataFrame(np.array(train))
+    #train1.to_csv('train_modelNet40.csv')
     test = ModelNet40(1024, 'test')
-    test1=pd.DataFrame(np.array(test))
-    test1.to_csv('test_modelNet40.csv')
+    type(test)
+    #test1=pd.DataFrame(np.array(test))
+    #test1.to_csv('test_modelNet40.csv')
     for data in train:
         print(len(data))
         break
