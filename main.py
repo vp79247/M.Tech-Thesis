@@ -73,6 +73,11 @@ def test_one_epoch(args, net, test_loader):
     eulers_ba = []
 
     for src, target, rotation_ab, translation_ab, rotation_ba, translation_ba, euler_ab, euler_ba in tqdm(test_loader):
+        df1=pd.DataFrame(np.array(src))
+        df1.to_csv('pointcloud1.csv')
+        df2=pd.DataFrame(np.array(target))
+        df2.to_csv('pointcloud2.csv)
+        
         src = src.cuda()
         target = target.cuda()
         rotation_ab = rotation_ab.cuda()
