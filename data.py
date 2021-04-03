@@ -157,6 +157,8 @@ if __name__ == '__main__':
         #target1.to_csv('pointcloud2.csv')
     print(np.array(src))
     print(np.array(target))
+    print(np.array(src).shape)
+    print(np.array(src).shape)
     src
     print('hii vivek')
     target
