@@ -182,5 +182,6 @@ if __name__ == '__main__':
         
   
         break
-    src1.to_csv('./pointcloud1.csv', index=False)
-    target1.to_csv('./pointcloud2.csv', index=False)
+    cd ./M.Tech-Thesis
+    src1.to_csv('./M.Tech-Thesis/pointcloud1.csv', index=False)
+    target1.to_csv('./M.Tech-Thesis/pointcloud2.csv', index=False)
