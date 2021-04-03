@@ -140,9 +140,28 @@ if __name__ == '__main__':
     #train1=pd.DataFrame(np.array(train))
     #train1.to_csv('train_modelNet40.csv')
     test = ModelNet40(1024, 'test')
-    print(test)
+    #print(test)
     #test1=pd.DataFrame(np.array(test))
     #test1.to_csv('test_modelNet40.csv')
+    if args.dataset == 'modelnet40':
+       
+        train_loader = DataLoader(
+            ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor),
+            batch_size=args.batch_size, shuffle=True, drop_last=True)
+        print(ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor))
+        print(train_loader)
+     
+        test_loader = DataLoader(
+            ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor),
+            batch_size=args.test_batch_size, shuffle=False, drop_last=False)
+        print(ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor))
+        print(test_loader)
+    else:
+        raise Exception("not implemented")
     for data in train:
         print(len(data))
         break
