@@ -162,6 +162,14 @@ if __name__ == '__main__':
         print(test_loader)
     else:
         raise Exception("not implemented")
+    for src, target, rotation_ab, translation_ab, rotation_ba, translation_ba, euler_ab, euler_ba in tqdm(test_loader):
+        df1=pd.DataFrame(np.array(src))
+        df1.to_csv('pointcloud1.csv')
+        df2=pd.DataFrame(np.array(target))
+        df2.to_csv('pointcloud2.csv')
+        
+        src = src.cuda()
+        target = target.cuda()
     for data in train:
         print(len(data))
         break
