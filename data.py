@@ -146,9 +146,9 @@ if __name__ == '__main__':
     #test1.to_csv('test_modelNet40.csv')
     
     train_loader = DataLoader(
-            ModelNet40(num_points=1024, partition='train', gaussian_noise=args.gaussian_noise,
-                       unseen=args.unseen, factor=4),
-            batch_size=args.batch_size, shuffle=True, drop_last=True)
+            ModelNet40(num_points=1024, partition='train', gaussian_noise=False,
+                       unseen=False, factor=4),
+            batch_size=32, shuffle=True, drop_last=True)
     for src, target, rotation_ab, translation_ab, rotation_ba, translation_ba, euler_ab, euler_ba in tqdm(train_loader):
         src1 = pd.DataFrame(src)
         src1.to_csv('pointcloud1.csv')
