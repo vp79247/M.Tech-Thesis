@@ -155,13 +155,13 @@ if __name__ == '__main__':
         #src1.to_csv('pointcloud1.csv')
         target = target
         #target1.to_csv('pointcloud2.csv')
-    print(src)
-    print(target)
+    print(np.array(src))
+    print(np.array(target))
     src
     print('hii vivek')
     target
     print('hii pandey')
-    src1=pd.DataFrame(src, dtype=object)
+    src1=pd.DataFrame(src, dty)
     target1=pd.DataFrame(target)
     src1.to_csv('pointcloud1.csv')
     target1.to_csv('pointcloud2.csv')
