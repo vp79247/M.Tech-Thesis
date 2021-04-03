@@ -11,6 +11,7 @@ import h5py
 import numpy as np
 from scipy.spatial.transform import Rotation
 from torch.utils.data import Dataset
+from tqdm import tqdm
 
 
 # Part of the code is referred from: https://github.com/charlesq34/pointnet
