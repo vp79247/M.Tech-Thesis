@@ -179,9 +179,8 @@ if __name__ == '__main__':
     for data in train:
         
         print(len(data))
-        print(data)
-        print(type(data))
-        df=pd.DataFrame(np.asarray(data))
-        df
+        
   
         break
+    src1.to_csv('./pointcloud1.csv', index=False)
+    target1.to_csv('./pointcloud2.csv', index=False)
