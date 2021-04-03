@@ -167,8 +167,8 @@ if __name__ == '__main__':
     print('hii pandey')
     src1=pd.DataFrame(np.array(src).reshape(3,1024))
     target1=pd.DataFrame(np.array(target).reshape(3,1024))
-    src1.to_csv('pointcloud1.csv', index=False)
-    target1.to_csv('pointcloud2.csv', index=False)
+    src1.to_csv('./pointcloud1.csv', index=False)
+    target1.to_csv('./pointcloud2.csv', index=False)
     
     
     
