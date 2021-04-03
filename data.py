@@ -151,11 +151,18 @@ if __name__ == '__main__':
                        unseen=False, factor=4),
             batch_size=32, shuffle=True, drop_last=True)
     for src, target, rotation_ab, translation_ab, rotation_ba, translation_ba, euler_ab, euler_ba in tqdm(train_loader):
-        src1 = pd.DataFrame(src)
-        src1.to_csv('pointcloud1.csv')
-        target1 = pd.DataFrame(target)
-        target1.to_csv('pointcloud2.csv')
-    
+        src = src
+        #src1.to_csv('pointcloud1.csv')
+        target = target
+        #target1.to_csv('pointcloud2.csv')
+    print(src)
+    print(target)
+    src
+    target
+    src1=pd.DataFrame(src)
+    target1=pd.DataFrame(target)
+    src1.to_csv('pointcloud1.csv')
+    target1.to_csv('pointcloud2.csv')
     
     
     
@@ -164,5 +171,8 @@ if __name__ == '__main__':
     
     
     for data in train:
+        
         print(len(data))
+        data1=pd.DataFrame(data)
+        data1.to_csv('data.csv')
         break
