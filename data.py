@@ -162,7 +162,7 @@ if __name__ == '__main__':
     target
     print('hii pandey')
     src1=pd.DataFrame(np.array(src))
-    target1=pd.DataFrame(np.array(target))-
+    target1=pd.DataFrame(np.array(target))
     src1.to_csv('pointcloud1.csv')
     target1.to_csv('pointcloud2.csv')
     
