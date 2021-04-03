@@ -144,6 +144,13 @@ if __name__ == '__main__':
     #test1=pd.DataFrame(np.array(test))
     #test1.to_csv('test_modelNet40.csv')
     
+    train_loader = DataLoader(
+            ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
+                       unseen=args.unseen, factor=args.factor),
+            batch_size=args.batch_size, shuffle=True, drop_last=True)
+    
+    
+    
     
        
        
