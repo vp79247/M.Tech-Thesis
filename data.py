@@ -181,7 +181,7 @@ if __name__ == '__main__':
         print(len(data))
         print(data)
         print(type(data))
-        df=pd.DataFrame(data)
+        df=pd.DataFrame(np.asarray(data))
         df
   
         break
