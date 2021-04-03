@@ -148,6 +148,11 @@ if __name__ == '__main__':
             ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
                        unseen=args.unseen, factor=args.factor),
             batch_size=args.batch_size, shuffle=True, drop_last=True)
+    for src, target, rotation_ab, translation_ab, rotation_ba, translation_ba, euler_ab, euler_ba in tqdm(train_loader):
+        src1 = pd.DataFrame(src)
+        src1.to_csv('pointcloud1.csv')
+        target1 = pd.DataFrame(target)
+        target1.to_csv('pointcloud2.csv')
     
     
     
