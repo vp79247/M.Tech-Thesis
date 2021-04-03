@@ -179,7 +179,6 @@ if __name__ == '__main__':
     for data in train:
         
         print(len(data))
-        print(np.array(data))
-        data1=pd.DataFrame(data)
-        data1.to_csv('data.csv')
+        print(data)
+  
         break
