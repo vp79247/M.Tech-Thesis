@@ -149,7 +149,7 @@ if __name__ == '__main__':
     train_loader = DataLoader(
             ModelNet40(num_points=1024, partition='train', gaussian_noise=False,
                        unseen=False, factor=4),
-            batch_size=32, shuffle=True, drop_last=True)
+            batch_size=1, shuffle=True, drop_last=True)
     for src, target, rotation_ab, translation_ab, rotation_ba, translation_ba, euler_ab, euler_ba in tqdm(train_loader):
         src = src
         #src1.to_csv('pointcloud1.csv')
@@ -158,6 +158,8 @@ if __name__ == '__main__':
     print(np.array(src))
     print(np.array(target))
     print(np.array(src).shape)
+    print(np.array(src).shape)
+    print(np.array(src)[0])
     print(np.array(src).shape)
     src
     print('hii vivek')
