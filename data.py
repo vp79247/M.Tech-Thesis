@@ -17,21 +17,22 @@ from tqdm import tqdm
 # Part of the code is referred from: https://github.com/charlesq34/pointnet
 
 def download():
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    BASE_DIR = os.path.dirname(os.path.abspath(os.path.curdir))
     DATA_DIR = os.path.join(BASE_DIR, 'data')
-    if not os.path.exists(DATA_DIR):
-        os.mkdir(DATA_DIR)
-    if not os.path.exists(os.path.join(DATA_DIR, 'modelnet40_ply_hdf5_2048')):
-        www = 'https://shapenet.cs.stanford.edu/media/modelnet40_ply_hdf5_2048.zip'
-        zipfile = os.path.basename(www)
-        os.system('wget --no-check-certificate %s ; unzip %s' % (www, zipfile))
+    if not os.path.exists(os.path.join(DATA_DIR, 'ShapeNet')):
+        !wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1P35bF9jAalyKebY2qvbLxzGOD8uw8u0t' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1P35bF9jAalyKebY2qvbLxzGOD8uw8u0t" -O ShapeNet.zip && rm -rf /tmp/cookies.txt  
+    
+        path=os.path.abspath(os.path.curdir)+'/ShapeNet.zip'
+        zipfile = os.path.basename(path)
+        os.system('unzip %s' % (zipfile))
         os.system('mv %s %s' % (zipfile[:-4], DATA_DIR))
         os.system('rm %s' % (zipfile))
 
 
+
 def load_data(partition):
     download()
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    BASE_DIR = os.path.dirname(os.path.abspath(os.path.curdir))
     DATA_DIR = os.path.join(BASE_DIR, 'data')
     all_data = []
     all_label = []
