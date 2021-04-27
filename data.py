@@ -1,38 +1,30 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-
 import os
-import pandas as pd
-from torch.utils.data import DataLoader
 import sys
 import glob
 import h5py
 import numpy as np
 from scipy.spatial.transform import Rotation
 from torch.utils.data import Dataset
-from tqdm import tqdm
 
 
 # Part of the code is referred from: https://github.com/charlesq34/pointnet
 
 def download():
-    BASE_DIR = os.path.dirname(os.path.abspath(os.path.curdir))
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     DATA_DIR = os.path.join(BASE_DIR, 'data')
-    if not os.path.exists(os.path.join(DATA_DIR, 'ShapeNet')):
-        !wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1P35bF9jAalyKebY2qvbLxzGOD8uw8u0t' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1P35bF9jAalyKebY2qvbLxzGOD8uw8u0t" -O ShapeNet.zip && rm -rf /tmp/cookies.txt  
-    
-        path=os.path.abspath(os.path.curdir)+'/ShapeNet.zip'
-        zipfile = os.path.basename(path)
-        os.system('unzip %s' % (zipfile))
+    if not os.path.exists(DATA_DIR):
+        os.mkdir(DATA_DIR)
+    if not os.path.exists(os.path.join(DATA_DIR, 'modelnet40_ply_hdf5_2048')):
+        www = 'https://shapenet.cs.stanford.edu/media/modelnet40_ply_hdf5_2048.zip'
+        zipfile = os.path.basename(www)
+        os.system('wget --no-check-certificate %s; unzip %s' % (www, zipfile))
         os.system('mv %s %s' % (zipfile[:-4], DATA_DIR))
         os.system('rm %s' % (zipfile))
 
 
-
 def load_data(partition):
     download()
-    BASE_DIR = os.path.dirname(os.path.abspath(os.path.curdir))
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     DATA_DIR = os.path.join(BASE_DIR, 'data')
     all_data = []
     all_label = []
@@ -121,17 +113,10 @@ class ModelNet40(Dataset):
 
         pointcloud1 = np.random.permutation(pointcloud1.T).T
         pointcloud2 = np.random.permutation(pointcloud2.T).T
-        #DF1=pd.DataFrame(pointcloud1)
-        #DF2=pd.DataFrame(pointcloud2)
-       
-        #DF1=DF1.to_csv("pointcloud1.csv")
-       
-        #DF2=DF2.to_csv("pointcloud2.csv")
 
         return pointcloud1.astype('float32'), pointcloud2.astype('float32'), R_ab.astype('float32'), \
                translation_ab.astype('float32'), R_ba.astype('float32'), translation_ba.astype('float32'), \
                euler_ab.astype('float32'), euler_ba.astype('float32')
-        
 
     def __len__(self):
         return self.data.shape[0]
@@ -139,50 +124,7 @@ class ModelNet40(Dataset):
 
 if __name__ == '__main__':
     train = ModelNet40(1024)
-    print(train)
-    #train1=pd.DataFrame(np.array(train))
-    #train1.to_csv('train_modelNet40.csv')
     test = ModelNet40(1024, 'test')
-    #print(test)
-    #test1=pd.DataFrame(np.array(test))
-    #test1.to_csv('test_modelNet40.csv')
-    
-    train_loader = DataLoader(
-            ModelNet40(num_points=1024, partition='train', gaussian_noise=False,
-                       unseen=False, factor=4),
-            batch_size=1, shuffle=True, drop_last=True)
-    for src, target, rotation_ab, translation_ab, rotation_ba, translation_ba, euler_ab, euler_ba in tqdm(train_loader):
-        src = src
-        #src1.to_csv('pointcloud1.csv')
-        target = target
-        #target1.to_csv('pointcloud2.csv')
-    print(np.array(src))
-    print(np.array(target))
-    print(np.array(src).shape)
-    print(np.array(src).shape)
-    print(np.array(src)[0])
-    print(np.array(src).shape)
-    src
-    print('hii vivek')
-    target
-    print('hii pandey')
-    src1=pd.DataFrame(np.array(src).reshape(3,1024))
-    target1=pd.DataFrame(np.array(target).reshape(3,1024))
-    src1.to_csv('.\pointcloud1.csv', index=False)
-    target1.to_csv('.\pointcloud2.csv', index=False)
-    
-    
-    
-       
-       
-    
-    
     for data in train:
-        
         print(len(data))
-        
-  
         break
-    
-    src1.to_csv('.\M.Tech-Thesis\pointcloud1.csv', index=False)
-    target1.to_csv('.\M.Tech-Thesis\pointcloud2.csv', index=False)
