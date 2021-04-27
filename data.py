@@ -15,7 +15,7 @@ def download():
     if not os.path.exists(DATA_DIR):
             os.mkdir(DATA_DIR)
     if not os.path.exists(os.path.join(DATA_DIR, 'complete')):
-        !wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=154C0HWNXmQhIavytPLq-MwNzg46OaLBc' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=154C0HWNXmQhIavytPLq-MwNzg46OaLBc" -O complete.zip && rm -rf /tmp/cookies.txt  
+        wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=154C0HWNXmQhIavytPLq-MwNzg46OaLBc' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=154C0HWNXmQhIavytPLq-MwNzg46OaLBc" -O complete.zip && rm -rf /tmp/cookies.txt  
 
         path=DATA_DIR +'/complete.zip'
         zipfile = os.path.basename(path)
