@@ -74,23 +74,24 @@ def jitter_pointcloud(pointcloud, sigma=0.01, clip=0.05):
     return pointcloud
 
 
-class ModelNet40(Dataset):
+class ShapeNet(Dataset):
     def __init__(self, num_points, partition='train', gaussian_noise=False, unseen=False, factor=4):
-        self.data, self.label = load_data(partition)
+        self.train_data, self.test_data, self.train_label, self.test_label = load_data(partition)
         self.num_points = num_points
         self.partition = partition
         self.gaussian_noise = gaussian_noise
         self.unseen = unseen
-        self.label = self.label.squeeze()
+        self.train_label = self.train_label.squeeze()
+        self.test_label = self.test_label.squeeze()
         self.factor = factor
         if self.unseen:
             ######## simulate testing on first 20 categories while training on last 20 categories
             if self.partition == 'test':
-                self.data = self.data[self.label>=20]
-                self.label = self.label[self.label>=20]
+                self.data = self.test_data
+                self.label = self.test_label
             elif self.partition == 'train':
-                self.data = self.data[self.label<20]
-                self.label = self.label[self.label<20]
+                self.data = self.train_data
+                self.label = self.train_label
 
     def __getitem__(self, item):
         pointcloud = self.data[item][:self.num_points]
@@ -143,8 +144,8 @@ class ModelNet40(Dataset):
 
 
 if __name__ == '__main__':
-    train = ModelNet40(1024)
-    test = ModelNet40(1024, 'test')
+    train = ShapeNet(1024)
+    test = ShapeNet(1024, 'test')
     for data in train:
         print(len(data))
         break
