@@ -10,14 +10,16 @@ from torch.utils.data import Dataset
 # Part of the code is referred from: https://github.com/charlesq34/pointnet
 
 def download():
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    DATA_DIR = os.path.join(BASE_DIR, 'data')
+    BASE_DIR = os.path.dirname(os.path.abspath(os.path.curdir))
+    DATA_DIR = os.path.join(BASE_DIR, 'ShapeNet')
     if not os.path.exists(DATA_DIR):
-        os.mkdir(DATA_DIR)
-    if not os.path.exists(os.path.join(DATA_DIR, 'modelnet40_ply_hdf5_2048')):
-        www = 'https://shapenet.cs.stanford.edu/media/modelnet40_ply_hdf5_2048.zip'
-        zipfile = os.path.basename(www)
-        os.system('wget --no-check-certificate %s; unzip %s' % (www, zipfile))
+            os.mkdir(DATA_DIR)
+    if not os.path.exists(os.path.join(DATA_DIR, 'complete')):
+        !wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=154C0HWNXmQhIavytPLq-MwNzg46OaLBc' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=154C0HWNXmQhIavytPLq-MwNzg46OaLBc" -O complete.zip && rm -rf /tmp/cookies.txt  
+
+        path=DATA_DIR +'/complete.zip'
+        zipfile = os.path.basename(path)
+        os.system('unzip %s' % (zipfile))
         os.system('mv %s %s' % (zipfile[:-4], DATA_DIR))
         os.system('rm %s' % (zipfile))
 
@@ -26,18 +28,36 @@ def load_data(partition):
     download()
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     DATA_DIR = os.path.join(BASE_DIR, 'data')
-    all_data = []
-    all_label = []
-    for h5_name in glob.glob(os.path.join(DATA_DIR, 'modelnet40_ply_hdf5_2048', 'ply_data_%s*.h5' % partition)):
-        f = h5py.File(h5_name)
-        data = f['data'][:].astype('float32')
-        label = f['label'][:].astype('int64')
-        f.close()
-        all_data.append(data)
-        all_label.append(label)
-    all_data = np.concatenate(all_data, axis=0)
-    all_label = np.concatenate(all_label, axis=0)
-    return all_data, all_label
+    train_points = []
+    train_labels = []
+    test_points = []
+    test_labels = []
+    class_map = {}
+    folders = glob.glob(os.path.join(DATA_DIR +'/complete', "[!README]*"))
+    for i, folder in enumerate(folders):
+      print("processing class: {}".format(os.path.basename(folder)))
+      # store folder name with ID so we can retrieve later
+      class_map[i] = folder.split("/")[-1]
+      # gather all files
+      train_files = glob.glob(os.path.join(folder, "train/*"))
+      test_files = glob.glob(os.path.join(folder, "test/*"))
+
+      for f in train_files:
+          train_pcd=o3d.io.read_point_cloud(f)
+          train_points.append(train_pcd.points)
+          train_labels.append(i)
+
+      for f in test_files:
+          test_pcd=o3d.io.read_point_cloud(f)
+          test_points.append(test_pcd.points)
+          test_labels.append(i)
+
+    train_points=np.array(train_points)
+    test_points=np.array(test_points)
+    train_labels=np.array(train_labels)
+    test_labels=np.array(test_labels)
+    class_map
+    return train_points, test_points, train_labels, test_labels
 
 
 def translate_pointcloud(pointcloud):
