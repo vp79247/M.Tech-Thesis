@@ -21,7 +21,7 @@ def download():
         zipfile = os.path.basename(path)
         os.system('unzip %s' % (zipfile))
         os.system('mv %s %s' % (zipfile[:-4], DATA_DIR))
-        os.system('rm %s' % (zipfile))
+        #os.system('rm %s' % (zipfile))
 
 
 def load_data(partition):
