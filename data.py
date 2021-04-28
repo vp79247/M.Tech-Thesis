@@ -81,7 +81,7 @@ class ModelNet40(Dataset):
         self.partition = partition
         self.gaussian_noise = gaussian_noise
         self.unseen = unseen
-        self.train_label = self.train_label.squeeze()
+        self.label = self.label.squeeze()
         self.test_label = self.test_label.squeeze()
         self.factor = factor
         if self.unseen:
