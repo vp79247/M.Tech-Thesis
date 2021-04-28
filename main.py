@@ -4,8 +4,6 @@
 
 from __future__ import print_function
 import os
-import numpy as np
-import pandas as pd
 import gc
 import argparse
 import torch
@@ -73,11 +71,6 @@ def test_one_epoch(args, net, test_loader):
     eulers_ba = []
 
     for src, target, rotation_ab, translation_ab, rotation_ba, translation_ba, euler_ab, euler_ba in tqdm(test_loader):
-        df1=pd.DataFrame(np.array(src))
-        df1.to_csv('pointcloud1.csv')
-        df2=pd.DataFrame(np.array(target))
-        df2.to_csv('pointcloud2.csv')
-        
         src = src.cuda()
         target = target.cuda()
         rotation_ab = rotation_ab.cuda()
@@ -591,22 +584,14 @@ def main():
     textio.cprint(str(args))
 
     if args.dataset == 'modelnet40':
-       
         train_loader = DataLoader(
             ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
                        unseen=args.unseen, factor=args.factor),
             batch_size=args.batch_size, shuffle=True, drop_last=True)
-        print(ModelNet40(num_points=args.num_points, partition='train', gaussian_noise=args.gaussian_noise,
-                       unseen=args.unseen, factor=args.factor))
-        print(train_loader)
-     
         test_loader = DataLoader(
             ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
                        unseen=args.unseen, factor=args.factor),
             batch_size=args.test_batch_size, shuffle=False, drop_last=False)
-        print(ModelNet40(num_points=args.num_points, partition='test', gaussian_noise=args.gaussian_noise,
-                       unseen=args.unseen, factor=args.factor))
-        print(test_loader)
     else:
         raise Exception("not implemented")
 
