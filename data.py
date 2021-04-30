@@ -26,8 +26,8 @@ def download():
 
 def load_data(partition):
     download()
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    DATA_DIR = os.path.join(BASE_DIR, 'data')
+    BASE_DIR = os.path.dirname(os.path.abspath(os.path.curdir))
+    DATA_DIR = os.path.join(BASE_DIR, 'ShapeNet')
     train_points = []
     train_labels = []
     test_points = []
