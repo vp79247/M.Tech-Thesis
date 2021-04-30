@@ -564,7 +564,7 @@ def main():
                         help='Wheter to test on unseen category')
     parser.add_argument('--num_points', type=int, default=1024, metavar='N',
                         help='Num of points to use')
-    parser.add_argument('--dataset', type=str, default='HapeNet', choices=['ShapeNet'], metavar='N',
+    parser.add_argument('--dataset', type=str, default='ShapeNet', choices=['ShapeNet'], metavar='N',
                         help='dataset to use')
     parser.add_argument('--factor', type=float, default=4, metavar='N',
                         help='Divided factor for rotations')
