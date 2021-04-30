@@ -406,7 +406,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
                       'rot_MAE: %f, trans_MSE: %f, trans_RMSE: %f, trans_MAE: %f'
                       % (epoch, train_loss, train_cycle_loss, train_mse_ab, train_rmse_ab, train_mae_ab, train_r_mse_ab,
                          train_r_rmse_ab, train_r_mae_ab, train_t_mse_ab, train_t_rmse_ab, train_t_mae_ab))
-        plt.plot(EPOCH,RMSE)
+        plt.plot(epoch,train_rmse_ab)
         plt.xlabel('Epoch')
         plt.ylabel('RMSE')
         textio.cprint('B--------->A')
