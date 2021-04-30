@@ -75,7 +75,7 @@ def jitter_pointcloud(pointcloud, sigma=0.01, clip=0.05):
     return pointcloud
 
 
-class ModelNet40(Dataset):
+class ShapeNet(Dataset):
     def __init__(self, num_points, partition='train', gaussian_noise=False, unseen=False, factor=4):
         self.data, self.test_data, self.label, self.test_label = load_data(partition)
         self.num_points = num_points
@@ -145,8 +145,8 @@ class ModelNet40(Dataset):
 
 
 if __name__ == '__main__':
-    train = ModelNet40(1024)
-    test = ModelNet40(1024, 'test')
+    train = ShapeNet(1024)
+    test = ShapeNet(1024, 'test')
     for data in train:
         print(len(data))
         break
