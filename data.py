@@ -2,6 +2,7 @@ import os
 import sys
 import glob
 import h5py
+import open3d as o3d
 import numpy as np
 from scipy.spatial.transform import Rotation
 from torch.utils.data import Dataset
