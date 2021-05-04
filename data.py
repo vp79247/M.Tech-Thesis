@@ -58,6 +58,8 @@ def load_data(partition):
     train_labels=np.array(train_labels)
     test_labels=np.array(test_labels)
     class_map
+    np.save('train_points.npy',train_points)
+    np.save('train_labels.npy',train_labels
     return train_points, test_points, train_labels, test_labels
 
 
@@ -66,12 +68,15 @@ def translate_pointcloud(pointcloud):
     xyz2 = np.random.uniform(low=-0.2, high=0.2, size=[3])
 
     translated_pointcloud = np.add(np.multiply(pointcloud, xyz1), xyz2).astype('float32')
+    np.save('translated_pointcloud.npy',translated_pointcloud)
+    
     return translated_pointcloud
 
 
 def jitter_pointcloud(pointcloud, sigma=0.01, clip=0.05):
     N, C = pointcloud.shape
     pointcloud += np.clip(sigma * np.random.randn(N, C), -1 * clip, clip)
+    np.save('pointcloud.npy',pointcloud)
     return pointcloud
 
 
@@ -123,11 +128,13 @@ class ShapeNet(Dataset):
         R_ba = R_ab.T
         translation_ab = np.array([np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5),
                                    np.random.uniform(-0.5, 0.5)])
+        np.save('translation_ab.npy',translation_ab)
         translation_ba = -R_ba.dot(translation_ab)
 
         pointcloud1 = pointcloud.T
 
         rotation_ab = Rotation.from_euler('zyx', [anglez, angley, anglex])
+        np.save('rotation_ab.npy',rotation_ab)
         pointcloud2 = rotation_ab.apply(pointcloud1.T).T + np.expand_dims(translation_ab, axis=1)
 
         euler_ab = np.asarray([anglez, angley, anglex])
