@@ -614,7 +614,7 @@ def main():
         if torch.cuda.device_count() > 1:
             net = nn.DataParallel(net)
             print("Let's use", torch.cuda.device_count(), "GPUs!")
-        #print(rotation_ab, translation_ab, rotation_ba, translation_ba)
+        
     else:
         raise Exception('Not implemented')
     if args.eval:
@@ -629,4 +629,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    print(rotation_ab, translation_ab, rotation_ba, translation_ba)
