@@ -156,8 +156,9 @@ class ShapeNet(Dataset):
 if __name__ == '__main__':
     train = ShapeNet(1024)
     test = ShapeNet(1024, 'test')
-    np.save('train.npy',np.array(train))
-    np.save('test.npy',np.array(test))
+    from numpy import savetxt
+    np.savetxt('train.csv',np.array(train),delimiter=",")
+    np.savetxt('test.csv',np.array(test),delimiter=",")
     for data in train:
         print(len(data))
         break
