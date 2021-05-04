@@ -156,8 +156,8 @@ class ShapeNet(Dataset):
 if __name__ == '__main__':
     train = ShapeNet(1024)
     test = ShapeNet(1024, 'test')
-    np.save('train.npy',train)
-    np.save('test.npy',test)
+    np.save('train.npy',np.array(train))
+    np.save('test.npy',np.array(test))
     for data in train:
         print(len(data))
         break
