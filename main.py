@@ -546,7 +546,7 @@ def main():
                         help='Size of batch)')
     parser.add_argument('--test_batch_size', type=int, default=10, metavar='batch_size',
                         help='Size of batch)')
-    parser.add_argument('--epochs', type=int, default=100, metavar='N',
+    parser.add_argument('--epochs', type=int, default=5, metavar='N',
                         help='number of episode to train ')
     parser.add_argument('--use_sgd', action='store_true', default=False,
                         help='Use SGD')
@@ -614,6 +614,7 @@ def main():
         if torch.cuda.device_count() > 1:
             net = nn.DataParallel(net)
             print("Let's use", torch.cuda.device_count(), "GPUs!")
+        print(rotation_ab, translation_ab, rotation_ba, translation_ba)
     else:
         raise Exception('Not implemented')
     if args.eval:
@@ -628,3 +629,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    print(rotation_ab, translation_ab, rotation_ba, translation_ba)
