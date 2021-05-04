@@ -135,6 +135,8 @@ class ShapeNet(Dataset):
 
         pointcloud1 = np.random.permutation(pointcloud1.T).T
         pointcloud2 = np.random.permutation(pointcloud2.T).T
+        np.save('pointcloud1.npy',pointcloud1)
+        np.save('pointcloud2.npy',pointcloud2)
 
         return pointcloud1.astype('float32'), pointcloud2.astype('float32'), R_ab.astype('float32'), \
                translation_ab.astype('float32'), R_ba.astype('float32'), translation_ba.astype('float32'), \
