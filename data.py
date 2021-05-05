@@ -105,7 +105,7 @@ class ShapeNet(Dataset):
             pointcloud = jitter_pointcloud(pointcloud)
         if self.partition != 'train':
             np.random.seed(item)
-        anglex = np.random.uniform() * np.pi / self.factor1
+        anglex = np.random.uniform() * np.pi / self.factor
         angley = np.random.uniform() * np.pi / self.factor
         anglez = np.random.uniform() * np.pi / self.factor
 
