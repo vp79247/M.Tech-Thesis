@@ -556,7 +556,7 @@ def main():
                         help='SGD momentum (default: 0.9)')
     parser.add_argument('--no_cuda', action='store_true', default=False,
                         help='enables CUDA training')
-    parser.add_argument('--seed', type=int, default=600, metavar='S',
+    parser.add_argument('--seed', type=int, default=1234, metavar='S',
                         help='random seed (default: 1)')
     parser.add_argument('--eval', action='store_true', default=False,
                         help='evaluate the model')
