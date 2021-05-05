@@ -110,7 +110,7 @@ class ShapeNet(Dataset):
             elif self.partition == 'train':
                 self.data = self.train_data
                 self.label = self.train_label
-            self.
+           
 
     def __getitem__(self, item):
         
