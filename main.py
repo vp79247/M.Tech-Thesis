@@ -614,7 +614,6 @@ def main():
         if torch.cuda.device_count() > 1:
             net = nn.DataParallel(net)
             print("Let's use", torch.cuda.device_count(), "GPUs!")
-        
     else:
         raise Exception('Not implemented')
     if args.eval:
