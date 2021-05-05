@@ -556,7 +556,7 @@ def main():
                         help='SGD momentum (default: 0.9)')
     parser.add_argument('--no_cuda', action='store_true', default=False,
                         help='enables CUDA training')
-    parser.add_argument('--seed', type=int, default=1234, metavar='S',
+    parser.add_argument('--seed', type=int, default=600, metavar='S',
                         help='random seed (default: 1)')
     parser.add_argument('--eval', action='store_true', default=False,
                         help='evaluate the model')
@@ -566,7 +566,7 @@ def main():
                         help='Wheter to add gaussian noise')
     parser.add_argument('--unseen', type=bool, default=False, metavar='N',
                         help='Wheter to test on unseen category')
-    parser.add_argument('--num_points', type=int, default=1024, metavar='N',
+    parser.add_argument('--num_points', type=int, default=8192, metavar='N',
                         help='Num of points to use')
     parser.add_argument('--dataset', type=str, default='ShapeNet', choices=['ShapeNet'], metavar='N',
                         help='dataset to use')
