@@ -60,8 +60,8 @@ def load_data(partition):
     for i in range(np.array(train_points).shape[0]):
         train_sub[i]=train_points[i][::8]
         test_sub[i]=test_points[i][::8]
-        train_slable[i]=train_labels[::8]
-        test_slabel[i]=test_labels[::8]
+        train_slable[i]=train_labels
+        test_slabel[i]=test_labels
         
 
 
