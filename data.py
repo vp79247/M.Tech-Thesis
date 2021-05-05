@@ -154,8 +154,8 @@ class ShapeNet(Dataset):
 
 
 if __name__ == '__main__':
-    train = ShapeNet(8192)
-    test = ShapeNet(8192, 'test')
+    train = ShapeNet(1024)
+    test = ShapeNet(1024, 'test')
     from numpy import savetxt
     #np.savetxt('train.csv',np.array(train),delimiter=",")
     #np.savetxt('test.csv',np.array(test),delimiter=",")
