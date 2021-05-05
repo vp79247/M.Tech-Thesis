@@ -57,7 +57,7 @@ def load_data(partition):
     test_sub=np.empty((np.array(test_points).shape[0],2048,3))
     train_slable=np.empty((np.array(train_labels).shape[0]))
     test_slabel=np.empty((np.array(train_labels).shape[0]))
-    for i in range(train_points.shape[0]):
+    for i in range(np.array(train_points).shape[0]):
         train_sub[i]=train_points[i][::8]
         test_sub[i]=test_points[i][::8]
         train_slable[i]=train_labels[::8]
