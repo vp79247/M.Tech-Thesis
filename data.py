@@ -110,7 +110,7 @@ class ShapeNet(Dataset):
         anglez = np.random.uniform() * np.pi / self.factor
 
         cosx = np.cos(anglex)
-        cosy = np.cos(angley
+        cosy = np.cos(angley)
         cosz = np.cos(anglez)
         sinx = np.sin(anglex)
         siny = np.sin(angley)
