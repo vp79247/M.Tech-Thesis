@@ -105,12 +105,12 @@ class ShapeNet(Dataset):
             pointcloud = jitter_pointcloud(pointcloud)
         if self.partition != 'train':
             np.random.seed(item)
-        anglex = np.random.uniform() * np.pi / self.factor
+        anglex = np.random.uniform() * np.pi / self.factor1
         angley = np.random.uniform() * np.pi / self.factor
         anglez = np.random.uniform() * np.pi / self.factor
 
         cosx = np.cos(anglex)
-        cosy = np.cos(angley)
+        cosy = np.cos(angley
         cosz = np.cos(anglez)
         sinx = np.sin(anglex)
         siny = np.sin(angley)
@@ -154,8 +154,8 @@ class ShapeNet(Dataset):
 
 
 if __name__ == '__main__':
-    train = ShapeNet(1024)
-    test = ShapeNet(1024, 'test')
+    train = ShapeNet(8192)
+    test = ShapeNet(8192, 'test')
     from numpy import savetxt
     np.savetxt('train.csv',np.array(train),delimiter=",")
     np.savetxt('test.csv',np.array(test),delimiter=",")
