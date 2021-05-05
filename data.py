@@ -64,7 +64,7 @@ def load_data(partition):
 
 
     train_points=np.array(train_sub)
-    test_points=np.array(test_points_sub)
+    test_points=np.array(test_points)
     train_labels=np.array(train_labels)
     test_labels=np.array(test_labels)
     class_map
