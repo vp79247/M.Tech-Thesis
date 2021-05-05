@@ -113,7 +113,7 @@ class ShapeNet(Dataset):
     def __getitem__(self, item):
         
         pointcloud = self.data[item][:self.num_points]
-        p
+        
         if self.gaussian_noise:
             pointcloud = jitter_pointcloud(pointcloud)
         if self.partition != 'train':
