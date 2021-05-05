@@ -52,11 +52,23 @@ def load_data(partition):
           test_pcd=o3d.io.read_point_cloud(f)
           test_points.append(test_pcd.points)
           test_labels.append(i)
+    ### subsampling the pointcloud and reducing it's size to one eighth of the original size ###      
+    train_sub=np.empty((train_points.shape[0],2048,3))
+    test_sub=np.empty((test_points.shape[0],2048,3))
+    train_slable=np.empty((train_label.shape[0]))
+    test_slabel=np.empty((train_label.shape[0]))
+    for i in range(train_points.shape[0]):
+        train_sub[i]=train_points[i][::8]
+        test_sub[i]=test_points[i][::8]
+        train_slable[i]=train_labels[::8]
+        test_slabel[i]=test_labels[::8]
+        
 
-    train_points=np.array(train_points)
-    test_points=np.array(test_points)
-    train_labels=np.array(train_labels)
-    test_labels=np.array(test_labels)
+
+    train_points=np.array(train_sub)
+    test_points=np.array(test_points_sub)
+    train_labels=np.array(train_slabel)
+    test_labels=np.array(test_slabel)
     class_map
     np.save('train_points.npy',train_points)
     np.save('train_labels.npy',train_labels)
@@ -98,9 +110,12 @@ class ShapeNet(Dataset):
             elif self.partition == 'train':
                 self.data = self.train_data
                 self.label = self.train_label
+            self.
 
     def __getitem__(self, item):
+        
         pointcloud = self.data[item][:self.num_points]
+        p
         if self.gaussian_noise:
             pointcloud = jitter_pointcloud(pointcloud)
         if self.partition != 'train':
