@@ -377,14 +377,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         test_t_rmse_ba = np.sqrt(test_t_mse_ba)
         test_t_mae_ba = np.mean(np.abs(test_translations_ba - test_translations_ba_pred))
         
-        train_rmse_out=train_rmse_out.append(train_rmse_ab)
-        test_rmse_out=test_rmse_out.append(test_rmse_ab)
-        train_rot_rmse_out=train_rot_rmse_out.append(train_r_rmse_ab)
-        test_rot_rmse_out=test_rot_rmse_out.append(test_r_rmse_ab)
-        train_trans_rmse_out=train_trans_rmse_out.append(test_t_rmse_ab)
-        test_trans_rmse_out=test_trans_rmse_out.append(test_t_rmse_ba)
-        epoch_out=epoch_out.append(epoch)
-
+        
         if best_test_loss >= test_loss:
             best_test_loss = test_loss
             best_test_cycle_loss = test_cycle_loss
@@ -458,6 +451,14 @@ def train(args, net, train_loader, test_loader, boardio, textio):
                       % (epoch, best_test_loss, best_test_mse_ba, best_test_rmse_ba, best_test_mae_ba,
                          best_test_r_mse_ba, best_test_r_rmse_ba,
                          best_test_r_mae_ba, best_test_t_mse_ba, best_test_t_rmse_ba, best_test_t_mae_ba))
+        train_rmse_out=train_rmse_out.append(train_rmse_ab)
+        test_rmse_out=test_rmse_out.append(test_rmse_ab)
+        train_rot_rmse_out=train_rot_rmse_out.append(train_r_rmse_ab)
+        test_rot_rmse_out=test_rot_rmse_out.append(test_r_rmse_ab)
+        train_trans_rmse_out=train_trans_rmse_out.append(test_t_rmse_ab)
+        test_trans_rmse_out=test_trans_rmse_out.append(test_t_rmse_ba)
+        epoch_out=epoch_out.append(epoch)
+
 
         boardio.add_scalar('A->B/train/loss', train_loss, epoch)
         boardio.add_scalar('A->B/train/MSE', train_mse_ab, epoch)
@@ -572,7 +573,7 @@ def main():
                         help='Size of batch)')
     parser.add_argument('--test_batch_size', type=int, default=10, metavar='batch_size',
                         help='Size of batch)')
-    parser.add_argument('--epochs', type=int, default=1, metavar='N',
+    parser.add_argument('--epochs', type=int, default=5, metavar='N',
                         help='number of episode to train ')
     parser.add_argument('--use_sgd', action='store_true', default=False,
                         help='Use SGD')
