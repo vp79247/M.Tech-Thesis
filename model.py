@@ -271,6 +271,9 @@ class PointNet(nn.Module):
         x = F.relu(self.bn3(self.conv3(x)))
         x = F.relu(self.bn4(self.conv4(x)))
         x = F.relu(self.bn5(self.conv5(x)))
+        print('PointNet')
+        print(type(x))
+        print(x.shape)
         return x
 
 
@@ -306,6 +309,9 @@ class DGCNN(nn.Module):
         x = torch.cat((x1, x2, x3, x4), dim=1)
 
         x = F.relu(self.bn5(self.conv5(x))).view(batch_size, -1, num_points)
+        print('DGCNN')
+        print(type(x))
+        print(x.shape)
         return x
 
 
@@ -369,6 +375,11 @@ class Transformer(nn.Module):
         tgt = tgt.transpose(2, 1).contiguous()
         tgt_embedding = self.model(src, tgt, None, None).transpose(2, 1).contiguous()
         src_embedding = self.model(tgt, src, None, None).transpose(2, 1).contiguous()
+        print('transformer_embeddings')
+        print(type(tgt_embedding))
+        print(tgt_embedding.shape)
+        print(type(src_embedding))
+        print(src_embedding.shape)
         return src_embedding, tgt_embedding
 
 
