@@ -15,7 +15,7 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 from util import quat2mat
 import pandas as pd
-
+import numpy as np
 
 # Part of the code is referred from: http://nlp.seas.harvard.edu/2018/04/03/attention.html#positional-encoding
 
