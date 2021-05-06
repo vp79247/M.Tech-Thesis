@@ -272,8 +272,8 @@ class PointNet(nn.Module):
         x = F.relu(self.bn4(self.conv4(x)))
         x = F.relu(self.bn5(self.conv5(x)))
         print('PointNet')
-        print(type(x))
-        print(x.shape)
+        print('pointnet output',type(x))
+        print('pointnet output',x.shape)
         return x
 
 
@@ -310,8 +310,8 @@ class DGCNN(nn.Module):
 
         x = F.relu(self.bn5(self.conv5(x))).view(batch_size, -1, num_points)
         print('DGCNN')
-        print(type(x))
-        print(x.shape)
+        print('dgcnn output',type(x))
+        print('dgcnn output',x.shape)
         return x
 
 
@@ -376,10 +376,10 @@ class Transformer(nn.Module):
         tgt_embedding = self.model(src, tgt, None, None).transpose(2, 1).contiguous()
         src_embedding = self.model(tgt, src, None, None).transpose(2, 1).contiguous()
         print('transformer_embeddings')
-        print(type(tgt_embedding))
-        print(tgt_embedding.shape)
-        print(type(src_embedding))
-        print(src_embedding.shape)
+        print('transformer output embedding tgt',type(tgt_embedding))
+        print('transformer output embedding tgt',tgt_embedding.shape)
+        print('transformer output embedding src',type(src_embedding))
+        print('transformer output embedding src',src_embedding.shape)
         return src_embedding, tgt_embedding
 
 
@@ -482,9 +482,9 @@ class DCP(nn.Module):
         else:
             rotation_ba = rotation_ab.transpose(2, 1).contiguous()
             translation_ba = -torch.matmul(rotation_ba, translation_ab.unsqueeze(2)).squeeze(2)
-        print(type(rotation_ab))
-        print(type(translation_ab))
-        print(rotation_ab.shape)
-        print(translation_ab.shape)
+        print('dcp rotation_ab',type(rotation_ab))
+        print('dcp trans ab',type(translation_ab))
+        print('dcp rotation_ab',rotation_ab.shape)
+        print('dcp trans ab',translation_ab.shape)
         
         return rotation_ab, translation_ab, rotation_ba, translation_ba
