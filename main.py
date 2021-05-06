@@ -317,13 +317,13 @@ def train(args, net, train_loader, test_loader, boardio, textio):
     best_test_t_rmse_ba = np.inf
     best_test_t_mae_ba = np.inf
     
-    epoch_out=np.array()
-    train_rmse_out=np.array()
-    test_rmse_out=np.array()
-    train_rot_rmse_out=np.array()
-    test_rot_rmse_out=np.array
-    train_trans_rmse_out=np.array()
-    test_trans_rmse_out=np.array()
+    epoch_out=[]
+    train_rmse_out=[]
+    test_rmse_out=[]
+    train_rot_rmse_out=[]
+    test_rot_rmse_out=[]
+    train_trans_rmse_out=[]
+    test_trans_rmse_out=[]
 
     for epoch in range(args.epochs):
         scheduler.step()
@@ -531,13 +531,13 @@ def train(args, net, train_loader, test_loader, boardio, textio):
             torch.save(net.state_dict(), 'checkpoints/%s/models/model.%d.t7' % (args.exp_name, epoch))
         gc.collect()
     df=pd.DataFrame(columns=['epochs','train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse'])
-    df['epochs']=epoch_out
-    df['train_rmse']=train_rmse_out
-    df['test_rmse']=test_rmse_out
-    df['train_rot_rmse']=train_rot_rmse_out
-    df['test_rot_rmse']=test_rot_rmse_out
-    df['train_trans_rmse']=train_trans_rmse_out
-    df['test_trans_rmse']=test_trans_rmse_out
+    df['epochs']=np.array(epoch_out)
+    df['train_rmse']=np.array(train_rmse_out)
+    df['test_rmse']=np.array(test_rmse_out)
+    df['train_rot_rmse']=np.array(train_rot_rmse_out)
+    df['test_rot_rmse']=np.array(test_rot_rmse_out)
+    df['train_trans_rmse']=np.array(train_trans_rmse_out)
+    df['test_trans_rmse']=np.array(test_trans_rmse_out)
     df.to_csv('df.csv')
 
 def main():
