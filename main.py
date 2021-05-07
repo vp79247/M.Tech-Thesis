@@ -378,16 +378,17 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         test_t_mae_ba = np.mean(np.abs(test_translations_ba - test_translations_ba_pred))
         print(type(train_rmse_ab))
         
+        epoch_out=np.append(epoch_out,epoch)
         train_rmse_out=np.append(train_rmse_out,train_rmse_ab)
         test_rmse_out=np.append(test_rmse_out,test_rmse_ab)
         train_rot_rmse_out=np.append(train_rot_rmse_out,train_r_rmse_ab)
         test_rot_rmse_out=np.append(test_rot_rmse_out,test_r_rmse_ab)
         train_trans_rmse_out=np.append(train_trans_rmse_out,test_t_rmse_ab)
         test_trans_rmse_out=np.append(test_trans_rmse_out,test_t_rmse_ba)
-        epoch_out=np.append(epoch_out,epoch)
         
-        df=pd.DataFrame(columns=['train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse'])
-        df['epochs']=epoch_out
+        
+        df=pd.DataFrame(columns=['epoch','train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse'])
+        df['epoch']=epoch_out
         df['train_rmse']=train_rmse_out
         df['test_rmse']=test_rmse_out
         df['train_rot_rmse']=train_rot_rmse_out
