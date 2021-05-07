@@ -468,10 +468,10 @@ class DCP(nn.Module):
         from numpy import savetxt
         src = input[0]
         tgt = input[1]
-        print(src.shape)
-        print(tgt.shape)
-        np.save('src.npy',src)
-        np.save('tgt.npy',tgt)
+        #print(src.shape)
+        #print(tgt.shape)
+        #np.save('src.npy',src)
+        #np.save('tgt.npy',tgt)
         src_embedding = self.emb_nn(src)
         tgt_embedding = self.emb_nn(tgt)
 
