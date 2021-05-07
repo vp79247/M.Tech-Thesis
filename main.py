@@ -376,6 +376,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         test_t_mse_ba = np.mean((test_translations_ba - test_translations_ba_pred) ** 2)
         test_t_rmse_ba = np.sqrt(test_t_mse_ba)
         test_t_mae_ba = np.mean(np.abs(test_translations_ba - test_translations_ba_pred))
+        print(type(train_rmse_ab))
         
         train_rmse_out=train_rmse_out.append(train_rmse_ab)
         test_rmse_out=test_rmse_out.append(test_rmse_ab)
