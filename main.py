@@ -418,6 +418,16 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         train_trans_rmse_out=train_trans_rmse_out.append(test_t_rmse_ab)
         test_trans_rmse_out=test_trans_rmse_out.append(test_t_rmse_ba)
         #epoch_out=epoch_out.append(epoch %d)
+        
+        df=pd.DataFrame(columns=['train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse'])
+        #df['epochs']=np.array(epoch_out)
+        df['train_rmse']=np.array(train_rmse_out)
+        df['test_rmse']=np.array(test_rmse_out)
+        df['train_rot_rmse']=np.array(train_rot_rmse_out)
+        df['test_rot_rmse']=np.array(test_rot_rmse_out)
+        df['train_trans_rmse']=np.array(train_trans_rmse_out)
+        df['test_trans_rmse']=np.array(test_trans_rmse_out)
+        df.to_csv('df.csv')
 
 
         textio.cprint('==TRAIN==')
@@ -535,15 +545,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         else:
             torch.save(net.state_dict(), 'checkpoints/%s/models/model.%d.t7' % (args.exp_name, epoch))
         gc.collect()
-    df=pd.DataFrame(columns=['epochs','train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse'])
-    #df['epochs']=np.array(epoch_out)
-    df['train_rmse']=np.array(train_rmse_out)
-    df['test_rmse']=np.array(test_rmse_out)
-    df['train_rot_rmse']=np.array(train_rot_rmse_out)
-    df['test_rot_rmse']=np.array(test_rot_rmse_out)
-    df['train_trans_rmse']=np.array(train_trans_rmse_out)
-    df['test_trans_rmse']=np.array(test_trans_rmse_out)
-    df.to_csv('df.csv')
+    
 
 def main():
     parser = argparse.ArgumentParser(description='Point Cloud Registration')
