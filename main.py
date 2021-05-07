@@ -319,13 +319,13 @@ def train(args, net, train_loader, test_loader, boardio, textio):
     best_test_t_rmse_ba = np.inf
     best_test_t_mae_ba = np.inf
     
-    epoch_out=[]
-    train_rmse_out=[]
-    test_rmse_out=[]
-    train_rot_rmse_out=[]
-    test_rot_rmse_out=[]
-    train_trans_rmse_out=[]
-    test_trans_rmse_out=[]
+    epoch_out=np.empty(args.epochs,1)
+    train_rmse_out=np.empty(args.epochs,1)
+    test_rmse_out=np.empty(args.epochs,1)
+    train_rot_rmse_out=np.empty(args.epochs,1)
+    test_rot_rmse_out=np.empty(args.epochs,1)
+    train_trans_rmse_out=np.empty(args.epochs,1)
+    test_trans_rmse_out=np.empty(args.epochs,1)
 
     for epoch in range(args.epochs):
         scheduler.step()
@@ -378,22 +378,22 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         test_t_mae_ba = np.mean(np.abs(test_translations_ba - test_translations_ba_pred))
         print(type(train_rmse_ab))
         
-        train_rmse_out=train_rmse_out.append(train_rmse_ab)
-        test_rmse_out=test_rmse_out.append(test_rmse_ab)
-        train_rot_rmse_out=train_rot_rmse_out.append(train_r_rmse_ab)
-        test_rot_rmse_out=test_rot_rmse_out.append(test_r_rmse_ab)
-        train_trans_rmse_out=train_trans_rmse_out.append(test_t_rmse_ab)
-        test_trans_rmse_out=test_trans_rmse_out.append(test_t_rmse_ba)
-        #epoch_out=epoch_out.append(epoch %d)
+        train_rmse_out=np.append(train_rmse_out,train_rmse_ab)
+        test_rmse_out=np.append(test_rmse_out,test_rmse_ab)
+        train_rot_rmse_out=np.append(train_rot_rmse_out,train_r_rmse_ab)
+        test_rot_rmse_out=np.append(test_rot_rmse_out,test_r_rmse_ab)
+        train_trans_rmse_out=np.append(train_trans_rmse_out,test_t_rmse_ab)
+        test_trans_rmse_out=np.append(test_trans_rmse_out,test_t_rmse_ba)
+        epoch_out=np.append(epoch_out,epoch)
         
         df=pd.DataFrame(columns=['train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse'])
-        #df['epochs']=np.array(epoch_out)
-        df['train_rmse']=np.array(train_rmse_out)
-        df['test_rmse']=np.array(test_rmse_out)
-        df['train_rot_rmse']=np.array(train_rot_rmse_out)
-        df['test_rot_rmse']=np.array(test_rot_rmse_out)
-        df['train_trans_rmse']=np.array(train_trans_rmse_out)
-        df['test_trans_rmse']=np.array(test_trans_rmse_out)
+        df['epochs']=epoch_out
+        df['train_rmse']=train_rmse_out
+        df['test_rmse']=test_rmse_out
+        df['train_rot_rmse']=train_rot_rmse_out
+        df['test_rot_rmse']=test_rot_rmse_out
+        df['train_trans_rmse']=train_trans_rmse_out
+        df['test_trans_rmse']=test_trans_rmse_out
         
         
         
