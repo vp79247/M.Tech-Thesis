@@ -319,13 +319,13 @@ def train(args, net, train_loader, test_loader, boardio, textio):
     best_test_t_rmse_ba = np.inf
     best_test_t_mae_ba = np.inf
     
-    epoch_out=np.empty(args.epochs,1)
-    train_rmse_out=np.empty(args.epochs,1)
-    test_rmse_out=np.empty(args.epochs,1)
-    train_rot_rmse_out=np.empty(args.epochs,1)
-    test_rot_rmse_out=np.empty(args.epochs,1)
-    train_trans_rmse_out=np.empty(args.epochs,1)
-    test_trans_rmse_out=np.empty(args.epochs,1)
+    epoch_out=np.empty([args.epochs,1])
+    train_rmse_out=np.empty([args.epochs,1])
+    test_rmse_out=np.empty([args.epochs,1])
+    train_rot_rmse_out=np.empty([args.epochs,1])
+    test_rot_rmse_out=np.empty([args.epochs,1])
+    train_trans_rmse_out=np.empty([args.epochs,1])
+    test_trans_rmse_out=np.empty([args.epochs,1])
 
     for epoch in range(args.epochs):
         scheduler.step()
