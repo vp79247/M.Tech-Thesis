@@ -468,6 +468,10 @@ class DCP(nn.Module):
         from numpy import savetxt
         src = input[0]
         tgt = input[1]
+        print(src.shape)
+        print(tgt.shape)
+        np.save('src.npy',src)
+        np.save('tgt.npy',tgt)
         src_embedding = self.emb_nn(src)
         tgt_embedding = self.emb_nn(tgt)
 
@@ -487,5 +491,7 @@ class DCP(nn.Module):
         #print('dcp trans ab',type(translation_ab))
         #print('dcp rotation_ab',rotation_ab.shape)
         #print('dcp trans ab',translation_ab.shape)
+        #np.save('rotation_ab.npy',rotation_ab)
+        #np.save('translation_ab.csv',translation_ab)
         
         return rotation_ab, translation_ab, rotation_ba, translation_ba
