@@ -326,6 +326,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
     test_rot_rmse_out=np.empty([args.epochs,1])
     train_trans_rmse_out=np.empty([args.epochs,1])
     test_trans_rmse_out=np.empty([args.epochs,1])
+ 
 
     for epoch in range(args.epochs):
         scheduler.step()
@@ -341,7 +342,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         test_translations_ba_pred, test_eulers_ab, test_eulers_ba = test_one_epoch(args, net, test_loader)
         train_rmse_ab = np.sqrt(train_mse_ab)
         test_rmse_ab = np.sqrt(test_mse_ab)
-
+        
         train_rmse_ba = np.sqrt(train_mse_ba)
         test_rmse_ba = np.sqrt(test_mse_ba)
 
@@ -550,6 +551,14 @@ def train(args, net, train_loader, test_loader, boardio, textio):
             torch.save(net.state_dict(), 'checkpoints/%s/models/model.%d.t7' % (args.exp_name, epoch))
         gc.collect()
     df.to_csv('df.csv')
+    print('train_rotation_shape',train_rotations_ab.shape)
+    print('train_translations_ab shape',train_translations_ab.shape)
+    print('test_rotation_shape',test_rotations_ab.shape)
+    print('test_translations_ab shape',test_translations_ab.shape)
+    np.save('train_rotation_shape.npy',train_rotation_ab)
+    np.save('train_translations_ab.csv',train_translations_ab)
+    np.save('test_rotation_ab.npy',test_rotation_ab)
+    np.save('test_translations_ab.csv',test_translations_ab)
 
 def main():
     parser = argparse.ArgumentParser(description='Point Cloud Registration')
