@@ -139,7 +139,7 @@ def test_one_epoch(args, net, test_loader):
     eulers_ab = np.concatenate(eulers_ab, axis=0)
     eulers_ba = np.concatenate(eulers_ba, axis=0)
 
-    return total_loss * 1.0 / num_examples, total_cycle_loss / num_examples, \
+    return src.cpu().numpy(),tgt.cpu().numpy(),total_loss * 1.0 / num_examples, total_cycle_loss / num_examples, \
            mse_ab * 1.0 / num_examples, mae_ab * 1.0 / num_examples, \
            mse_ba * 1.0 / num_examples, mae_ba * 1.0 / num_examples, rotations_ab, \
            translations_ab, rotations_ab_pred, translations_ab_pred, rotations_ba, \
@@ -238,7 +238,7 @@ def train_one_epoch(args, net, train_loader, opt):
     eulers_ab = np.concatenate(eulers_ab, axis=0)
     eulers_ba = np.concatenate(eulers_ba, axis=0)
 
-    return total_loss * 1.0 / num_examples, total_cycle_loss / num_examples, \
+    return src.cpu().numpy(),tgt.cpu().numpy(),total_loss * 1.0 / num_examples, total_cycle_loss / num_examples, \
            mse_ab * 1.0 / num_examples, mae_ab * 1.0 / num_examples, \
            mse_ba * 1.0 / num_examples, mae_ba * 1.0 / num_examples, rotations_ab, \
            translations_ab, rotations_ab_pred, translations_ab_pred, rotations_ba, \
@@ -247,6 +247,7 @@ def train_one_epoch(args, net, train_loader, opt):
 
 def test(args, net, test_loader, boardio, textio):
 
+    src_test,tgt_test,\
     test_loss, test_cycle_loss, \
     test_mse_ab, test_mae_ab, test_mse_ba, test_mae_ba, test_rotations_ab, test_translations_ab, \
     test_rotations_ab_pred, \
@@ -330,11 +331,13 @@ def train(args, net, train_loader, test_loader, boardio, textio):
 
     for epoch in range(args.epochs):
         scheduler.step()
+        src_train,tgt_train,\
         train_loss, train_cycle_loss, \
         train_mse_ab, train_mae_ab, train_mse_ba, train_mae_ba, train_rotations_ab, train_translations_ab, \
         train_rotations_ab_pred, \
         train_translations_ab_pred, train_rotations_ba, train_translations_ba, train_rotations_ba_pred, \
         train_translations_ba_pred, train_eulers_ab, train_eulers_ba = train_one_epoch(args, net, train_loader, opt)
+        src_test,tgt_test,\
         test_loss, test_cycle_loss, \
         test_mse_ab, test_mae_ab, test_mse_ba, test_mae_ba, test_rotations_ab, test_translations_ab, \
         test_rotations_ab_pred, \
@@ -551,14 +554,18 @@ def train(args, net, train_loader, test_loader, boardio, textio):
             torch.save(net.state_dict(), 'checkpoints/%s/models/model.%d.t7' % (args.exp_name, epoch))
         gc.collect()
     df.to_csv('df.csv')
-    print('train_rotation_shape',train_rotations_ab.shape)
-    print('train_translations_ab shape',train_translations_ab.shape)
-    print('test_rotation_shape',test_rotations_ab.shape)
-    print('test_translations_ab shape',test_translations_ab.shape)
-    np.save('train_rotation_shape.npy',train_rotation_ab)
+    #print('train_rotation_shape',train_rotations_ab.shape)
+    #print('train_translations_ab shape',train_translations_ab.shape)
+    #print('test_rotation_shape',test_rotations_ab.shape)
+    #print('test_translations_ab shape',test_translations_ab.shape)
+    np.save('train_rotation_ab.npy',train_rotation_ab)
     np.save('train_translations_ab.csv',train_translations_ab)
     np.save('test_rotation_ab.npy',test_rotation_ab)
     np.save('test_translations_ab.csv',test_translations_ab)
+    np.save('src_train.npy',src_train)
+    np.save('tgt_train.npy',tgt_train)
+    np.save('src_test.npy',src_test)
+    np.save('tgt_test.npy',tgt_test)
 
 def main():
     parser = argparse.ArgumentParser(description='Point Cloud Registration')
