@@ -265,7 +265,7 @@ class PointNet(nn.Module):
         self.bn3 = nn.BatchNorm1d(64)
         self.bn4 = nn.BatchNorm1d(128)
         self.bn5 = nn.BatchNorm1d(emb_dims)
-        print('PointNet is being used')
+        #print('PointNet is being used')
 
     def forward(self, x):
         x = F.relu(self.bn1(self.conv1(x)))
@@ -273,7 +273,7 @@ class PointNet(nn.Module):
         x = F.relu(self.bn3(self.conv3(x)))
         x = F.relu(self.bn4(self.conv4(x)))
         x = F.relu(self.bn5(self.conv5(x)))
-        print('PointNet is being used')
+        #print('PointNet is being used')
         #print('pointnet output',type(x))
         #print('pointnet output',x.shape)
         return x
@@ -292,7 +292,7 @@ class DGCNN(nn.Module):
         self.bn3 = nn.BatchNorm2d(128)
         self.bn4 = nn.BatchNorm2d(256)
         self.bn5 = nn.BatchNorm2d(emb_dims)
-        print('DGCNN is being used')
+        #print('DGCNN is being used')
 
     def forward(self, x):
         batch_size, num_dims, num_points = x.size()
@@ -312,7 +312,7 @@ class DGCNN(nn.Module):
         x = torch.cat((x1, x2, x3, x4), dim=1)
 
         x = F.relu(self.bn5(self.conv5(x))).view(batch_size, -1, num_points)
-        print('DGCNN is being used')
+        #print('DGCNN is being used')
         #print('dgcnn output',type(x))
         #print('dgcnn output',x.shape)
         return x
@@ -334,7 +334,7 @@ class MLPHead(nn.Module):
                                 nn.ReLU())
         self.proj_rot = nn.Linear(emb_dims // 8, 4)
         self.proj_trans = nn.Linear(emb_dims // 8, 3)
-        print('MLP is being used')
+        #print('MLP is being used')
 
     def forward(self, *input):
         src_embedding = input[0]
@@ -344,7 +344,7 @@ class MLPHead(nn.Module):
         rotation = self.proj_rot(embedding)
         rotation = rotation / torch.norm(rotation, p=2, dim=1, keepdim=True)
         translation = self.proj_trans(embedding)
-        print('MLP is being used')
+        #print('MLP is being used')
         return quat2mat(rotation), translation
 
 
@@ -372,7 +372,7 @@ class Transformer(nn.Module):
                                     nn.Sequential(),
                                     nn.Sequential(),
                                     nn.Sequential())
-        print('transformer is being used')
+        #print('transformer is being used')
 
     def forward(self, *input):
         src = input[0]
@@ -386,7 +386,7 @@ class Transformer(nn.Module):
         #print('transformer output embedding tgt',tgt_embedding.shape)
         #print('transformer output embedding src',type(src_embedding))
         #print('transformer output embedding src',src_embedding.shape)
-        print('transformer is being used')
+        #print('transformer is being used')
         return src_embedding, tgt_embedding
 
 
@@ -396,7 +396,7 @@ class SVDHead(nn.Module):
         self.emb_dims = args.emb_dims
         self.reflect = nn.Parameter(torch.eye(3), requires_grad=False)
         self.reflect[2, 2] = -1
-        print('SVD is being used')
+        #print('SVD is being used')
 
     def forward(self, *input):
         src_embedding = input[0]
@@ -441,7 +441,7 @@ class SVDHead(nn.Module):
         R = torch.stack(R, dim=0)
 
         t = torch.matmul(-R, src.mean(dim=2, keepdim=True)) + src_corr.mean(dim=2, keepdim=True)
-        print('SVD is being used')
+        #print('SVD is being used')
         return R, t.view(batch_size, 3)
 
 
