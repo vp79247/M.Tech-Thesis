@@ -141,13 +141,13 @@ class ShapeNet(Dataset):
         R_ba = R_ab.T
         translation_ab = np.array([np.random.uniform(-0.5, 0.5), np.random.uniform(-0.5, 0.5),
                                    np.random.uniform(-0.5, 0.5)])
-        np.save('translation_ab.npy',translation_ab)
+        np.save('translation.npy',translation_ab)
         translation_ba = -R_ba.dot(translation_ab)
 
         pointcloud1 = pointcloud.T
 
         rotation_ab = Rotation.from_euler('zyx', [anglez, angley, anglex])
-        np.save('rotation_ab.npy',rotation_ab)
+        np.save('rotation.npy',rotation_ab)
         pointcloud2 = rotation_ab.apply(pointcloud1.T).T + np.expand_dims(translation_ab, axis=1)
 
         euler_ab = np.asarray([anglez, angley, anglex])
