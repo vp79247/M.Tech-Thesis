@@ -567,6 +567,9 @@ def train(args, net, train_loader, test_loader, boardio, textio):
     np.save('tgt_train.npy',tgt_train)
     np.save('src_test.npy',src_test)
     np.save('tgt_test.npy',tgt_test)
+    
+    np.save('train_eulers_ab.npy',train_eulers_ab)
+    np.save('train_eulers_ab.npy',test_eulers_ab)
 
 def main():
     parser = argparse.ArgumentParser(description='Point Cloud Registration')
