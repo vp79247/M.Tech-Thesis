@@ -558,9 +558,10 @@ def train(args, net, train_loader, test_loader, boardio, textio):
     #print('train_translations_ab shape',train_translations_ab.shape)
     #print('test_rotation_shape',test_rotations_ab.shape)
     #print('test_translations_ab shape',test_translations_ab.shape)
-    np.save('train_rotation_ab.npy',train_rotation_ab)
+    
+    np.save('train_rotation_ab.npy',train_rotations_ab)
     np.save('train_translations_ab.csv',train_translations_ab)
-    np.save('test_rotation_ab.npy',test_rotation_ab)
+    np.save('test_rotation_ab.npy',test_rotations_ab)
     np.save('test_translations_ab.csv',test_translations_ab)
     np.save('src_train.npy',src_train)
     np.save('tgt_train.npy',tgt_train)
