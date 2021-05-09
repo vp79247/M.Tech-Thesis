@@ -139,7 +139,7 @@ def test_one_epoch(args, net, test_loader):
     eulers_ab = np.concatenate(eulers_ab, axis=0)
     eulers_ba = np.concatenate(eulers_ba, axis=0)
 
-    return src.cpu().numpy(),tgt.cpu().numpy(),total_loss * 1.0 / num_examples, total_cycle_loss / num_examples, \
+    return src.cpu().numpy(),target.cpu().numpy(),total_loss * 1.0 / num_examples, total_cycle_loss / num_examples, \
            mse_ab * 1.0 / num_examples, mae_ab * 1.0 / num_examples, \
            mse_ba * 1.0 / num_examples, mae_ba * 1.0 / num_examples, rotations_ab, \
            translations_ab, rotations_ab_pred, translations_ab_pred, rotations_ba, \
@@ -238,7 +238,7 @@ def train_one_epoch(args, net, train_loader, opt):
     eulers_ab = np.concatenate(eulers_ab, axis=0)
     eulers_ba = np.concatenate(eulers_ba, axis=0)
 
-    return src.cpu().numpy(),tgt.cpu().numpy(),total_loss * 1.0 / num_examples, total_cycle_loss / num_examples, \
+    return src.cpu().numpy(),target.cpu().numpy(),total_loss * 1.0 / num_examples, total_cycle_loss / num_examples, \
            mse_ab * 1.0 / num_examples, mae_ab * 1.0 / num_examples, \
            mse_ba * 1.0 / num_examples, mae_ba * 1.0 / num_examples, rotations_ab, \
            translations_ab, rotations_ab_pred, translations_ab_pred, rotations_ba, \
