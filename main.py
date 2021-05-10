@@ -581,7 +581,7 @@ def main():
     parser.add_argument('--emb_nn', type=str, default='pointnet', metavar='N',
                         choices=['pointnet', 'dgcnn'],
                         help='Embedding nn to use, [pointnet, dgcnn]')
-    parser.add_argument('--pointer', type=str, default='transformer', metavar='N',
+    parser.add_argument('--pointer', type=str, default='identity', metavar='N',
                         choices=['identity', 'transformer'],
                         help='Attention-based pointer generator to use, [identity, transformer]')
     parser.add_argument('--head', type=str, default='svd', metavar='N',
