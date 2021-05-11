@@ -584,7 +584,7 @@ def main():
     parser.add_argument('--pointer', type=str, default='identity', metavar='N',
                         choices=['identity', 'transformer'],
                         help='Attention-based pointer generator to use, [identity, transformer]')
-    parser.add_argument('--head', type=str, default='svd', metavar='N',
+    parser.add_argument('--head', type=str, default='mlp', metavar='N',
                         choices=['mlp', 'svd', ],
                         help='Head to use, [mlp, svd]')
     parser.add_argument('--emb_dims', type=int, default=512, metavar='N',
