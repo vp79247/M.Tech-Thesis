@@ -581,7 +581,7 @@ def main():
     parser.add_argument('--emb_nn', type=str, default='pointnet', metavar='N',
                         choices=['pointnet', 'dgcnn'],
                         help='Embedding nn to use, [pointnet, dgcnn]')
-    parser.add_argument('--pointer', type=str, default='identity', metavar='N',
+    parser.add_argument('--pointer', type=str, default='transformer', metavar='N',
                         choices=['identity', 'transformer'],
                         help='Attention-based pointer generator to use, [identity, transformer]')
     parser.add_argument('--head', type=str, default='mlp', metavar='N',
@@ -601,7 +601,7 @@ def main():
                         help='Size of batch)')
     parser.add_argument('--test_batch_size', type=int, default=10, metavar='batch_size',
                         help='Size of batch)')
-    parser.add_argument('--epochs', type=int, default=200, metavar='N',
+    parser.add_argument('--epochs', type=int, default=100, metavar='N',
                         help='number of episode to train ')
     parser.add_argument('--use_sgd', action='store_true', default=False,
                         help='Use SGD')
