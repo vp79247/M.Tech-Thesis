@@ -321,6 +321,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
     best_test_t_mae_ba = np.inf
     
     epoch_out=np.empty([args.epochs,1])
+    loss_out=np.empty([args.epochs,1])
     train_rmse_out=np.empty([args.epochs,1])
     test_rmse_out=np.empty([args.epochs,1])
     train_rot_rmse_out=np.empty([args.epochs,1])
@@ -391,8 +392,10 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         test_trans_rmse_out=np.append(test_trans_rmse_out,test_t_rmse_ba)
         
         
-        df=pd.DataFrame(columns=['epoch','train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse'])
+        df=pd.DataFrame(columns=['epoch','train_loss','test_loss','train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse'])
         df['epoch']=epoch_out
+        df['train_loss']=train_loss
+        df['test_loss']=test_loss
         df['train_rmse']=train_rmse_out
         df['test_rmse']=test_rmse_out
         df['train_rot_rmse']=train_rot_rmse_out
