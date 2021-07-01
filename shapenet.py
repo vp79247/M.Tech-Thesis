@@ -66,7 +66,7 @@ def load_data(partition):
     class_map
     np.save('train_points.npy',train_points)
     np.save('train_labels.npy',train_labels)
-    np.save('test_points.npy',test_points)
+    
     return train_points, test_points, train_labels, test_labels
 
 
