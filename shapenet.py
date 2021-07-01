@@ -150,7 +150,7 @@ class ShapeNet(Dataset):
         pointcloud1 = pointcloud.T
 
         rotation_ab = Rotation.from_euler('zyx', [anglez, angley, anglex])
-        np.save('rotation.npy',rotation_ab)
+        np.savetxt('rotation.csv',rotation_ab)
         pointcloud2 = rotation_ab.apply(pointcloud1.T).T + np.expand_dims(translation_ab, axis=1)
 
         euler_ab = np.asarray([anglez, angley, anglex])
