@@ -68,8 +68,8 @@ def load_data(partition):
     train_labels=np.array(train_labels)
     test_labels=np.array(test_labels)
     class_map
-    np.save('train_points.npy',train_points)
-    np.save('train_labels.npy',train_labels)
+    np.savetxt('train_points.csv',train_points)
+    np.savetxt('train_labels.csv',train_labels)
     return train_points, test_points, train_labels, test_labels
 
 
