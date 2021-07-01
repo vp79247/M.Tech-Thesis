@@ -54,7 +54,7 @@ def load_data(partition):
           test_labels.append(i)
     ### subsampling the pointcloud and reducing it's size to one eighth of the original size ###      
     train_sub=np.empty((np.array(train_points).shape[0],2048,3))
-    test_sub=np.empty((np.array(test_points).shape[0],2048,3))
+    test_sub=np.empty((np.array(test_points).shape[0],1336,3))
     
     for i in range(np.array(train_points).shape[0]):
         train_sub[i]=train_points[i][::8]
