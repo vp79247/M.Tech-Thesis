@@ -445,7 +445,7 @@ class SVDHead(nn.Module):
         error=0
         for i in range(100):
             src_corr1=torch.matmul(R,src)+t
-            e1=torch.abs(torch.Tensor(src_corr1-src_corr))
+            e1=torch.abs(torch.Tensor(src_corr1-src_corr).cpu())
             
             error=torch.sum(torch.sum(e1,1))
             if error>0:
