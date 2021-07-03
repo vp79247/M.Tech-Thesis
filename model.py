@@ -445,10 +445,10 @@ class SVDHead(nn.Module):
         error=0
         for i in range(100):
             src_corr1=torch.matmul(R,src)+t
-            e=torch.Tensor(src_corr1-src_corr).cpu()
+            e=src_corr1-src_corr
             e1=torch.abs(e)
             
-            error=torch.sum(torch.sum(e,1).cuda()).cuda()
+            error=torch.sum(torch.sum(e,1))
             if error>0:
                 src=src_corr1
                 src_centered = src - src.mean(dim=2, keepdim=True)
