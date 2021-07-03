@@ -16,6 +16,7 @@ from torch.autograd import Variable
 from util import quat2mat
 import pandas as pd
 import numpy as np
+from util import transform_point_cloud, npmat2euler
 
 # Part of the code is referred from: http://nlp.seas.harvard.edu/2018/04/03/attention.html#positional-encoding
 
@@ -444,8 +445,8 @@ class SVDHead(nn.Module):
         #print('SVD is being used')
         error=0
         for i in range(100):
-            src_corr1=torch.matmul(R,src)+t
-            e=src_corr1-src_corr
+            transformed_src = transform_point_cloud(src, R, t)
+            e=transformed_src-src_corr
             e1=torch.abs(e)
             
             error=torch.sum(torch.sum(e,1))
