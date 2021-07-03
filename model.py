@@ -443,7 +443,7 @@ class SVDHead(nn.Module):
         t = torch.matmul(-R, src.mean(dim=2, keepdim=True)) + src_corr.mean(dim=2, keepdim=True)
         #print('SVD is being used')
         error=0
-        for i in range(epochs):
+        for i in range(100):
             src_corr1=torch.matmul(R,src)+t
             error=torch.mode(src_corr1-src_corr)
             if error>0:
