@@ -442,6 +442,40 @@ class SVDHead(nn.Module):
 
         t = torch.matmul(-R, src.mean(dim=2, keepdim=True)) + src_corr.mean(dim=2, keepdim=True)
         #print('SVD is being used')
+        error=0
+        for i in range(epochs):
+            src_corr1=torch.matmul(R,src)+t
+            error=torch.mode(src_corr1-src_corr)
+            if error>0:
+                src=src_corr1
+                src_centered = src - src.mean(dim=2, keepdim=True)
+
+                H = torch.matmul(src_centered, src_corr_centered.transpose(2, 1).contiguous())
+
+                U, S, V = [], [], []
+                R = []
+                
+                for i in range(src.size(0)):
+                    u, s, v = torch.svd(H[i])
+                    r = torch.matmul(v, u.transpose(1, 0).contiguous())
+                    r_det = torch.det(r)
+                    if r_det < 0:
+                        u, s, v = torch.svd(H[i])
+                        v = torch.matmul(v, self.reflect)
+                        r = torch.matmul(v, u.transpose(1, 0).contiguous())
+                        # r = r * self.reflect
+                    R.append(r)
+
+                    U.append(u)
+                    S.append(s)
+                    V.append(v)
+
+                U = torch.stack(U, dim=0)
+                V = torch.stack(V, dim=0)
+                S = torch.stack(S, dim=0)
+                R = torch.stack(R, dim=0)
+                t = torch.matmul(-R, src.mean(dim=2, keepdim=True)) + src_corr.mean(dim=2, keepdim=True)
+
         return R, t.view(batch_size, 3)
 
 
