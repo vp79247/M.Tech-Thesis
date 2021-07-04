@@ -491,21 +491,27 @@ class DCP(nn.Module):
         src_embedding = src_embedding + src_embedding_p
         tgt_embedding = tgt_embedding + tgt_embedding_p
         rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
+        print(rotation_ab.shape)
+        print(translation_ab.shape)
+        print(src_embedding.shape)
+        print(tgt_embedding.shape)
+        print(src.shape)
+        print(tgt.shape)
         
         ##ICP##
-        error=0
-        for i in range(20):
+        #error=0
+        #for i in range(20):
             
-            src_transformed=torch.matmul(rotation_ab,src)+translation_ab
-            src_embedding_trans=torch.matmul(rotation_ab,src_embedding)+translation_ab
-            e=torch.abs(src_transformed-tgt)
+            #src_transformed=torch.matmul(rotation_ab,src)+translation_ab
+            #src_embedding_trans=torch.matmul(rotation_ab,src_embedding)+translation_ab
+            #e=torch.abs(src_transformed-tgt)
            
-            error=torch.sum(torch.sum(e,1))
-            if error>0:
-                src=src_transformed
-                src_embedding=src_embedding_trans
+            #error=torch.sum(torch.sum(e,1))
+            #if error>0:
+               # src=src_transformed
+               # src_embedding=src_embedding_trans
             
-            rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
+           # rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
             
 
         
