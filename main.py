@@ -600,7 +600,7 @@ def main():
                         help='Num of dimensions of fc in transformer')
     parser.add_argument('--dropout', type=float, default=0.0, metavar='N',
                         help='Dropout ratio in transformer')
-    parser.add_argument('--batch_size', type=int, default=16, metavar='batch_size',
+    parser.add_argument('--batch_size', type=int, default=32, metavar='batch_size',
                         help='Size of batch)')
     parser.add_argument('--test_batch_size', type=int, default=10, metavar='batch_size',
                         help='Size of batch)')
