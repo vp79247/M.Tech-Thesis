@@ -98,6 +98,10 @@ def test_one_epoch(args, net, test_loader):
         rotations_ba_pred.append(rotation_ba_pred.detach().cpu().numpy())
         translations_ba_pred.append(translation_ba_pred.detach().cpu().numpy())
         eulers_ba.append(euler_ba.numpy())
+        
+        transformed_src = transform_point_cloud(src, rotation_ab_pred, translation_ab_pred)
+
+        transformed_target = transform_point_cloud(target, rotation_ba_pred, translation_ba_pred)
         for i in range(10):
             
         
@@ -217,6 +221,10 @@ def train_one_epoch(args, net, train_loader, opt):
         rotations_ba_pred.append(rotation_ba_pred.detach().cpu().numpy())
         translations_ba_pred.append(translation_ba_pred.detach().cpu().numpy())
         eulers_ba.append(euler_ba.numpy())
+        
+        transformed_src = transform_point_cloud(src, rotation_ab_pred, translation_ab_pred)
+
+        transformed_target = transform_point_cloud(target, rotation_ba_pred, translation_ba_pred)
         
         for i in range(10):
             
