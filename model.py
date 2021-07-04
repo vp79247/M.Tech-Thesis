@@ -544,6 +544,78 @@ class DCP(nn.Module):
             src=src_transformed
             
         rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
+        #iter 5
+        src_transformed=transform_point_cloud(src, rotation_ab, translation_ab)
+            #src_embedding_trans=transform_point_cloud(src_embedding, rotation_ab, translation_ab)
+        e=torch.abs(src_transformed-tgt)
+           
+        error=torch.sum(torch.sum(e,1))
+        if error>0:
+            src=src_transformed
+            
+        rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
+        
+        #iter 6
+        
+        src_transformed=transform_point_cloud(src, rotation_ab, translation_ab)
+            #src_embedding_trans=transform_point_cloud(src_embedding, rotation_ab, translation_ab)
+        e=torch.abs(src_transformed-tgt)
+           
+        error=torch.sum(torch.sum(e,1))
+        if error>0:
+            src=src_transformed
+            
+        rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
+        
+        #iter 7
+        
+        src_transformed=transform_point_cloud(src, rotation_ab, translation_ab)
+            #src_embedding_trans=transform_point_cloud(src_embedding, rotation_ab, translation_ab)
+        e=torch.abs(src_transformed-tgt)
+           
+        error=torch.sum(torch.sum(e,1))
+        if error>0:
+            src=src_transformed
+            
+        rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
+        
+        #iter 8
+        
+        src_transformed=transform_point_cloud(src, rotation_ab, translation_ab)
+            #src_embedding_trans=transform_point_cloud(src_embedding, rotation_ab, translation_ab)
+        e=torch.abs(src_transformed-tgt)
+           
+        error=torch.sum(torch.sum(e,1))
+        if error>0:
+            src=src_transformed
+            
+        rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
+        #9
+        src_transformed=transform_point_cloud(src, rotation_ab, translation_ab)
+            #src_embedding_trans=transform_point_cloud(src_embedding, rotation_ab, translation_ab)
+        e=torch.abs(src_transformed-tgt)
+           
+        error=torch.sum(torch.sum(e,1))
+        if error>0:
+            src=src_transformed
+            
+        rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
+        
+        #iter 10
+        
+        src_transformed=transform_point_cloud(src, rotation_ab, translation_ab)
+            #src_embedding_trans=transform_point_cloud(src_embedding, rotation_ab, translation_ab)
+        e=torch.abs(src_transformed-tgt)
+           
+        error=torch.sum(torch.sum(e,1))
+        if error>0:
+            src=src_transformed
+            
+        rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
+
+
+
+
 
         
         if self.cycle:
