@@ -491,12 +491,12 @@ class DCP(nn.Module):
         src_embedding = src_embedding + src_embedding_p
         tgt_embedding = tgt_embedding + tgt_embedding_p
         rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
-        print(rotation_ab.shape)
-        print(translation_ab.shape)
-        print(src_embedding.shape)
-        print(tgt_embedding.shape)
-        print(src.shape)
-        print(tgt.shape)
+        #print(rotation_ab.shape)
+        #print(translation_ab.shape)
+        #print(src_embedding.shape)
+        #print(tgt_embedding.shape)
+        #print(src.shape)
+        #print(tgt.shape)
         
         ##ICP##
         error=0
