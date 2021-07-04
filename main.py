@@ -84,7 +84,8 @@ def test_one_epoch(args, net, test_loader):
         batch_size = src.size(0)
         num_examples += batch_size
         rotation_ab_pred, translation_ab_pred, rotation_ba_pred, translation_ba_pred = net(src, target)
-
+        
+        
         ## save rotation and translation
         rotations_ab.append(rotation_ab.detach().cpu().numpy())
         translations_ab.append(translation_ab.detach().cpu().numpy())
@@ -97,11 +98,25 @@ def test_one_epoch(args, net, test_loader):
         rotations_ba_pred.append(rotation_ba_pred.detach().cpu().numpy())
         translations_ba_pred.append(translation_ba_pred.detach().cpu().numpy())
         eulers_ba.append(euler_ba.numpy())
+        for i in range(10):
+            
+        
+            e=torch.abs(transformed_src-target)
 
-        transformed_src = transform_point_cloud(src, rotation_ab_pred, translation_ab_pred)
+            error=torch.sum(torch.sum(e,1))
+            if error>0:
+                src=transformed_src
+                
+            rotation_ab_pred, translation_ab_pred, rotation_ba_pred, translation_ba_pred = net(src, target)
 
-        transformed_target = transform_point_cloud(target, rotation_ba_pred, translation_ba_pred)
+            
+            transformed_src = transform_point_cloud(src, rotation_ab_pred, translation_ab_pred)
 
+            transformed_target = transform_point_cloud(target, rotation_ba_pred, translation_ba_pred)
+
+   
+        
+  
         ###########################
         identity = torch.eye(3).cuda().unsqueeze(0).repeat(batch_size, 1, 1)
         loss = F.mse_loss(torch.matmul(rotation_ab_pred.transpose(2, 1), rotation_ab), identity) \
@@ -125,6 +140,8 @@ def test_one_epoch(args, net, test_loader):
 
         mse_ba += torch.mean((transformed_target - src) ** 2, dim=[0, 1, 2]).item() * batch_size
         mae_ba += torch.mean(torch.abs(transformed_target - src), dim=[0, 1, 2]).item() * batch_size
+        
+        
 
     rotations_ab = np.concatenate(rotations_ab, axis=0)
     translations_ab = np.concatenate(translations_ab, axis=0)
@@ -135,9 +152,14 @@ def test_one_epoch(args, net, test_loader):
     translations_ba = np.concatenate(translations_ba, axis=0)
     rotations_ba_pred = np.concatenate(rotations_ba_pred, axis=0)
     translations_ba_pred = np.concatenate(translations_ba_pred, axis=0)
+    
+    
 
     eulers_ab = np.concatenate(eulers_ab, axis=0)
     eulers_ba = np.concatenate(eulers_ba, axis=0)
+    
+    
+    
 
     return src.cpu().numpy(),target.cpu().numpy(),total_loss * 1.0 / num_examples, total_cycle_loss / num_examples, \
            mse_ab * 1.0 / num_examples, mae_ab * 1.0 / num_examples, \
@@ -195,10 +217,24 @@ def train_one_epoch(args, net, train_loader, opt):
         rotations_ba_pred.append(rotation_ba_pred.detach().cpu().numpy())
         translations_ba_pred.append(translation_ba_pred.detach().cpu().numpy())
         eulers_ba.append(euler_ba.numpy())
+        
+        for i in range(10):
+            
+        
+            e=torch.abs(transformed_src-target)
 
-        transformed_src = transform_point_cloud(src, rotation_ab_pred, translation_ab_pred)
+            error=torch.sum(torch.sum(e,1))
+            if error>0:
+                src=transformed_src
+                
+            rotation_ab_pred, translation_ab_pred, rotation_ba_pred, translation_ba_pred = net(src, target)
 
-        transformed_target = transform_point_cloud(target, rotation_ba_pred, translation_ba_pred)
+            
+            transformed_src = transform_point_cloud(src, rotation_ab_pred, translation_ab_pred)
+
+            transformed_target = transform_point_cloud(target, rotation_ba_pred, translation_ba_pred)
+
+
         ###########################
         identity = torch.eye(3).cuda().unsqueeze(0).repeat(batch_size, 1, 1)
         loss = F.mse_loss(torch.matmul(rotation_ab_pred.transpose(2, 1), rotation_ab), identity) \
