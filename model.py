@@ -443,42 +443,7 @@ class SVDHead(nn.Module):
 
         t = torch.matmul(-R, src.mean(dim=2, keepdim=True)) + src_corr.mean(dim=2, keepdim=True)
         #print('SVD is being used')
-        error=0
-        for i in range(100):
-            transformed_src = transform_point_cloud(src, R, t)
-            e=transformed_src-src_corr
-            e1=torch.abs(e)
-            
-            error=torch.sum(torch.sum(e,1))
-            if error>0:
-                src=src_corr1
-                src_centered = src - src.mean(dim=2, keepdim=True)
-
-                H = torch.matmul(src_centered, src_corr_centered.transpose(2, 1).contiguous())
-
-                U, S, V = [], [], []
-                R = []
-                
-                for i in range(src.size(0)):
-                    u, s, v = torch.svd(H[i])
-                    r = torch.matmul(v, u.transpose(1, 0).contiguous())
-                    r_det = torch.det(r)
-                    if r_det < 0:
-                        u, s, v = torch.svd(H[i])
-                        v = torch.matmul(v, self.reflect)
-                        r = torch.matmul(v, u.transpose(1, 0).contiguous())
-                        # r = r * self.reflect
-                    R.append(r)
-
-                    U.append(u)
-                    S.append(s)
-                    V.append(v)
-
-                U = torch.stack(U, dim=0)
-                V = torch.stack(V, dim=0)
-                S = torch.stack(S, dim=0)
-                R = torch.stack(R, dim=0)
-                t = torch.matmul(-R, src.mean(dim=2, keepdim=True)) + src_corr.mean(dim=2, keepdim=True)
+        
 
         return R, t.view(batch_size, 3)
 
@@ -525,8 +490,25 @@ class DCP(nn.Module):
 
         src_embedding = src_embedding + src_embedding_p
         tgt_embedding = tgt_embedding + tgt_embedding_p
-
         rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
+        
+        ##ICP##
+        error=0
+        for i in range(10):
+            
+            src_transformed=torch.matmul(rotation_ab,src)+translation_ab
+            src_embedding_trans=torch.matmul(rotation_ab,src_embedding)+translation_ab
+            e=torch.abs(src_transformed-tgt)
+           
+            error=torch.sum(torch.sum(e,1))
+            if error>0:
+                src=src_transformed
+                src_embedding=src_embedding_trans
+            
+            rotation_ab, translation_ab = self.head(src_embedding, tgt_embedding, src, tgt)
+            
+
+        
         if self.cycle:
             rotation_ba, translation_ba = self.head(tgt_embedding, src_embedding, tgt, src)
 
