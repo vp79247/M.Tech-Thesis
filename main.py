@@ -303,7 +303,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
     else:
         print("Use Adam")
         opt = optim.Adam(net.parameters(), lr=args.lr, weight_decay=1e-4)
-    scheduler = MultiStepLR(opt, milestones=[75, 150, 200], gamma=0.1)
+    scheduler = MultiStepLR(opt, milestones=[25, 50, 75], gamma=0.1)
 
 
     best_test_loss = np.inf
