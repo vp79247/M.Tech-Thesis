@@ -102,25 +102,7 @@ def test_one_epoch(args, net, test_loader):
         transformed_src = transform_point_cloud(src, rotation_ab_pred, translation_ab_pred)
 
         transformed_target = transform_point_cloud(target, rotation_ba_pred, translation_ba_pred)
-        for i in range(10):
-            
         
-            e=torch.abs(transformed_src-target)
-
-            error=torch.sum(torch.sum(e,1))
-            if error>0:
-                src=transformed_src
-                
-            rotation_ab_pred, translation_ab_pred, rotation_ba_pred, translation_ba_pred = net(src, target)
-
-            
-            transformed_src = transform_point_cloud(src, rotation_ab_pred, translation_ab_pred)
-
-            transformed_target = transform_point_cloud(target, rotation_ba_pred, translation_ba_pred)
-
-   
-        
-  
         ###########################
         identity = torch.eye(3).cuda().unsqueeze(0).repeat(batch_size, 1, 1)
         loss = F.mse_loss(torch.matmul(rotation_ab_pred.transpose(2, 1), rotation_ab), identity) \
@@ -226,23 +208,7 @@ def train_one_epoch(args, net, train_loader, opt):
 
         transformed_target = transform_point_cloud(target, rotation_ba_pred, translation_ba_pred)
         
-        for i in range(10):
-            
         
-            e=torch.abs(transformed_src-target)
-
-            error=torch.sum(torch.sum(e,1))
-            if error>0:
-                src=transformed_src
-                
-            rotation_ab_pred, translation_ab_pred, rotation_ba_pred, translation_ba_pred = net(src, target)
-
-            
-            transformed_src = transform_point_cloud(src, rotation_ab_pred, translation_ab_pred)
-
-            transformed_target = transform_point_cloud(target, rotation_ba_pred, translation_ba_pred)
-
-
         ###########################
         identity = torch.eye(3).cuda().unsqueeze(0).repeat(batch_size, 1, 1)
         loss = F.mse_loss(torch.matmul(rotation_ab_pred.transpose(2, 1), rotation_ab), identity) \
@@ -372,7 +338,15 @@ def train(args, net, train_loader, test_loader, boardio, textio):
     test_rot_rmse_out=np.empty([args.epochs,1])
     train_trans_rmse_out=np.empty([args.epochs,1])
     test_trans_rmse_out=np.empty([args.epochs,1])
- 
+    train_rot_mse_out=np.empty([args.epochs,1])
+    test_rot_mse_out=np.empty([args.epochs,1])
+    train_trans_mse_out=np.empty([args.epochs,1])
+    test_trans_mse_out=np.empty([args.epochs,1])
+    train_trans_mae_out=np.empty([args.epochs,1])
+    test_trans_mae_out=np.empty([args.epochs,1])
+    train_rot_mae_out=np.empty([args.epochs,1])
+    test_rot_mae_out=np.empty([args.epochs,1])
+    
 
     for epoch in range(args.epochs):
         scheduler.step()
@@ -434,6 +408,14 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         test_rot_rmse_out=np.append(test_rot_rmse_out,test_r_rmse_ab)
         train_trans_rmse_out=np.append(train_trans_rmse_out,test_t_rmse_ab)
         test_trans_rmse_out=np.append(test_trans_rmse_out,test_t_rmse_ba)
+        train_rot_mse_out=np.append(train_rot_mse_out,train_r_mse_ab)
+        test_rot_mse_out=np.append(test_rot_mse_out,test_r_mse_ab)
+        train_trans_mse_out=np.append(train_trans_mse_out,train_t_mse_ab)
+        test_trans_mse_out=np.append(test_trans_mse_out,test_t_mse_ab)
+        train_trans_mae_out=np.append(train_trans_mae_out,train_t_mae_ab)
+        test_trans_mae_out=np.append(test_trans_mae_out,test_t_mae_ab)
+        train_rot_mae_out=np.append(train_rot_mae_out,train_r_mae_ab)
+        test_rot_mae_out=np.append(test_rot_mae_out,test_r_mae_ab)
         
         
         df=pd.DataFrame(columns=['epoch','train_loss','test_loss','train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse'])
@@ -491,9 +473,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
                       'rot_MAE: %f, trans_MSE: %f, trans_RMSE: %f, trans_MAE: %f'
                       % (epoch, train_loss, train_cycle_loss, train_mse_ab, train_rmse_ab, train_mae_ab, train_r_mse_ab,
                          train_r_rmse_ab, train_r_mae_ab, train_t_mse_ab, train_t_rmse_ab, train_t_mae_ab))
-        plt.plot(epoch,train_rmse_ab)
-        plt.xlabel('Epoch')
-        plt.ylabel('RMSE')
+        
         textio.cprint('B--------->A')
         textio.cprint('EPOCH:: %d, Loss: %f, MSE: %f, RMSE: %f, MAE: %f, rot_MSE: %f, rot_RMSE: %f, '
                       'rot_MAE: %f, trans_MSE: %f, trans_RMSE: %f, trans_MAE: %f'
