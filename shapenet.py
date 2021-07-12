@@ -87,7 +87,7 @@ def jitter_pointcloud(pointcloud, sigma=0.01, clip=0.05):
     return pointcloud
 
 
-class ShapeNet(Dataset):
+class shapenet(Dataset):
     def __init__(self, num_points, partition='train', gaussian_noise=False, unseen=False, factor=4):
         self.data, self.test_data, self.label, self.test_label = load_data(partition)
         self.num_points = num_points
@@ -167,9 +167,9 @@ class ShapeNet(Dataset):
 
 
 if __name__ == '__main__':
-    train = ShapeNet(1048)
-    test = ShapeNet(1048, 'test')
-    from numpy import savetxt
+    train = shapenet(1048)
+    test = shapenet(1048, 'test')
+    
     #np.savetxt('train.csv',np.array(train),delimiter=",")
     #np.savetxt('test.csv',np.array(test),delimiter=",")
     for data in train:
