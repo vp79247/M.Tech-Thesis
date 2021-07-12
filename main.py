@@ -303,7 +303,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
     else:
         print("Use Adam")
         opt = optim.Adam(net.parameters(), lr=args.lr, weight_decay=1e-4)
-    scheduler = MultiStepLR(opt, milestones=[25, 50, 75], gamma=0.1)
+    scheduler = MultiStepLR(opt, milestones=[75, 100, 150], gamma=0.1)
 
 
     best_test_loss = np.inf
@@ -399,7 +399,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         test_t_mse_ba = np.mean((test_translations_ba - test_translations_ba_pred) ** 2)
         test_t_rmse_ba = np.sqrt(test_t_mse_ba)
         test_t_mae_ba = np.mean(np.abs(test_translations_ba - test_translations_ba_pred))
-        print(type(train_rmse_ab))
+        #print(type(train_rmse_ab))
         
         #epoch_out=np.append(epoch_out,epoch)
         #train_rmse_out=np.append(train_rmse_out,train_rmse_ab)
@@ -594,17 +594,17 @@ def train(args, net, train_loader, test_loader, boardio, textio):
     #print('test_rotation_shape',test_rotations_ab.shape)
     #print('test_translations_ab shape',test_translations_ab.shape)
     
-    np.save('train_rotation_ab.npy',train_rotations_ab)
-    np.save('train_translations_ab.csv',train_translations_ab)
-    np.save('test_rotation_ab.npy',test_rotations_ab)
-    np.save('test_translations_ab.csv',test_translations_ab)
-    np.save('src_train.npy',src_train)
-    np.save('tgt_train.npy',tgt_train)
-    np.save('src_test.npy',src_test)
-    np.save('tgt_test.npy',tgt_test)
+    #np.save('train_rotation_ab.npy',train_rotations_ab)
+    #np.save('train_translations_ab.csv',train_translations_ab)
+    #np.save('test_rotation_ab.npy',test_rotations_ab)
+    #np.save('test_translations_ab.csv',test_translations_ab)
+    #np.save('src_train.npy',src_train)
+    #np.save('tgt_train.npy',tgt_train)
+    #np.save('src_test.npy',src_test)
+    #np.save('tgt_test.npy',tgt_test)
     
-    np.save('train_eulers_ab.npy',train_eulers_ab)
-    np.save('train_eulers_ab.npy',test_eulers_ab)
+    #np.save('train_eulers_ab.npy',train_eulers_ab)
+    #np.save('train_eulers_ab.npy',test_eulers_ab)
 
 def main():
     parser = argparse.ArgumentParser(description='Point Cloud Registration')
@@ -613,7 +613,7 @@ def main():
     parser.add_argument('--model', type=str, default='dcp', metavar='N',
                         choices=['dcp'],
                         help='Model to use, [dcp]')
-    parser.add_argument('--emb_nn', type=str, default='dgcnn', metavar='N',
+    parser.add_argument('--emb_nn', type=str, default='pointnet', metavar='N',
                         choices=['pointnet', 'dgcnn'],
                         help='Embedding nn to use, [pointnet, dgcnn]')
     parser.add_argument('--pointer', type=str, default='transformer', metavar='N',
