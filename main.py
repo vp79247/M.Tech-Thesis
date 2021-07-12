@@ -528,7 +528,7 @@ def main():
     parser.add_argument('--head', type=str, default='svd', metavar='N',
                         choices=['mlp', 'svd', ],
                         help='Head to use, [mlp, svd]')
-    parser.add_argument('--emb_dims', type=int, default=512, metavar='N',
+    parser.add_argument('--emb_dims', type=int, default=1024, metavar='N',
                         help='Dimension of embeddings')
     parser.add_argument('--n_blocks', type=int, default=1, metavar='N',
                         help='Num of blocks of encoder&decoder')
@@ -542,7 +542,7 @@ def main():
                         help='Size of batch)')
     parser.add_argument('--test_batch_size', type=int, default=10, metavar='batch_size',
                         help='Size of batch)')
-    parser.add_argument('--epochs', type=int, default=250, metavar='N',
+    parser.add_argument('--epochs', type=int, default=100, metavar='N',
                         help='number of episode to train ')
     parser.add_argument('--use_sgd', action='store_true', default=False,
                         help='Use SGD')
