@@ -401,42 +401,42 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         test_t_mae_ba = np.mean(np.abs(test_translations_ba - test_translations_ba_pred))
         print(type(train_rmse_ab))
         
-        epoch_out=np.append(epoch_out,epoch)
-        train_rmse_out=np.append(train_rmse_out,train_rmse_ab)
-        test_rmse_out=np.append(test_rmse_out,test_rmse_ab)
-        train_rot_rmse_out=np.append(train_rot_rmse_out,train_r_rmse_ab)
-        test_rot_rmse_out=np.append(test_rot_rmse_out,test_r_rmse_ab)
-        train_trans_rmse_out=np.append(train_trans_rmse_out,test_t_rmse_ab)
-        test_trans_rmse_out=np.append(test_trans_rmse_out,test_t_rmse_ba)
-        train_rot_mse_out=np.append(train_rot_mse_out,train_r_mse_ab)
-        test_rot_mse_out=np.append(test_rot_mse_out,test_r_mse_ab)
-        train_trans_mse_out=np.append(train_trans_mse_out,train_t_mse_ab)
-        test_trans_mse_out=np.append(test_trans_mse_out,test_t_mse_ab)
-        train_trans_mae_out=np.append(train_trans_mae_out,train_t_mae_ab)
-        test_trans_mae_out=np.append(test_trans_mae_out,test_t_mae_ab)
-        train_rot_mae_out=np.append(train_rot_mae_out,train_r_mae_ab)
-        test_rot_mae_out=np.append(test_rot_mae_out,test_r_mae_ab)
+        #epoch_out=np.append(epoch_out,epoch)
+        #train_rmse_out=np.append(train_rmse_out,train_rmse_ab)
+        #test_rmse_out=np.append(test_rmse_out,test_rmse_ab)
+        #train_rot_rmse_out=np.append(train_rot_rmse_out,train_r_rmse_ab)
+        #test_rot_rmse_out=np.append(test_rot_rmse_out,test_r_rmse_ab)
+        #train_trans_rmse_out=np.append(train_trans_rmse_out,test_t_rmse_ab)
+        #test_trans_rmse_out=np.append(test_trans_rmse_out,test_t_rmse_ba)
+        #train_rot_mse_out=np.append(train_rot_mse_out,train_r_mse_ab)
+        #test_rot_mse_out=np.append(test_rot_mse_out,test_r_mse_ab)
+        #train_trans_mse_out=np.append(train_trans_mse_out,train_t_mse_ab)
+        #test_trans_mse_out=np.append(test_trans_mse_out,test_t_mse_ab)
+        #train_trans_mae_out=np.append(train_trans_mae_out,train_t_mae_ab)
+        #test_trans_mae_out=np.append(test_trans_mae_out,test_t_mae_ab)
+        #train_rot_mae_out=np.append(train_rot_mae_out,train_r_mae_ab)
+        #test_rot_mae_out=np.append(test_rot_mae_out,test_r_mae_ab)
         
         
-        df=pd.DataFrame(columns=['epoch','train_loss','test_loss','train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse','train_rot_mse',
+        #df=pd.DataFrame(columns=['epoch','train_loss','test_loss','train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse','train_rot_mse',
                                'test_rot_mse',  'train_trans_mse', 'test_trans_mse', 'train_trans_mae', 'test_trans_mae', 'train_rot_mae', 'test_rot_mae'])
-        df['epoch']=epoch_out
-        df['train_loss']=train_loss
-        df['test_loss']=test_loss
-        df['train_rmse']=train_rmse_out
-        df['test_rmse']=test_rmse_out
-        df['train_rot_rmse']=train_rot_rmse_out
-        df['test_rot_rmse']=test_rot_rmse_out
-        df['train_trans_rmse']=train_trans_rmse_out
-        df['test_trans_rmse']=test_trans_rmse_out
-        df['train_rot_mse']=train_rot_mse_out
-        df['test_rot_mse']=test_rot_mse_out
-        df['train_trans_mse']=train_trans_mse_out
-        df['test_trans_mse']=test_trans_mse_out
-        df['train_trans_mae']=train_trans_mae_out
-        df['test_trans_mae']=test_trans_mae_out
-        df['train_rot_mae']=train_rot_mae_out
-        df['test_rot_mae']=test_rot_mae_out
+        #df['epoch']=epoch_out
+        #df['train_loss']=train_loss
+        #df['test_loss']=test_loss
+        #df['train_rmse']=train_rmse_out
+        #df['test_rmse']=test_rmse_out
+        #df['train_rot_rmse']=train_rot_rmse_out
+        #df['test_rot_rmse']=test_rot_rmse_out
+        #df['train_trans_rmse']=train_trans_rmse_out
+        #df['test_trans_rmse']=test_trans_rmse_out
+        #df['train_rot_mse']=train_rot_mse_out
+        #df['test_rot_mse']=test_rot_mse_out
+        #df['train_trans_mse']=train_trans_mse_out
+        #df['test_trans_mse']=test_trans_mse_out
+        #df['train_trans_mae']=train_trans_mae_out
+        #df['test_trans_mae']=test_trans_mae_out
+        #df['train_rot_mae']=train_rot_mae_out
+        #df['test_rot_mae']=test_rot_mae_out
         
         
         if best_test_loss >= test_loss:
@@ -588,7 +588,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         else:
             torch.save(net.state_dict(), 'checkpoints/%s/models/model.%d.t7' % (args.exp_name, epoch))
         gc.collect()
-    df.to_csv('df.csv')
+    #df.to_csv('df.csv')
     #print('train_rotation_shape',train_rotations_ab.shape)
     #print('train_translations_ab shape',train_translations_ab.shape)
     #print('test_rotation_shape',test_rotations_ab.shape)
