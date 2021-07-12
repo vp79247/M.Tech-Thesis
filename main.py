@@ -11,7 +11,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.optim.lr_scheduler import MultiStepLR
-from data import shapenet
+from shapenet import shapenet
 from model import DCP
 from util import transform_point_cloud, npmat2euler
 import numpy as np
