@@ -475,8 +475,7 @@ class DCP(nn.Module):
             raise Exception('Not implemented')
 
     def forward(self, *input):
-        import numpy as np
-        from numpy import savetxt
+        
         src = input[0]
         tgt = input[1]
         #print(src.shape)
