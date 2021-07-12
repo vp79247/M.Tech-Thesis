@@ -692,6 +692,7 @@ def main():
 
     boardio = SummaryWriter(log_dir='checkpoints/' + args.exp_name)
     _init_(args)
+    torch.cuda.memory_summary(device=None, abbreviated=False)
 
     textio = IOStream('checkpoints/' + args.exp_name + '/run.log')
     textio.cprint(str(args))
