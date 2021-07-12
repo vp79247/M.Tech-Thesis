@@ -419,7 +419,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         
         
         #df=pd.DataFrame(columns=['epoch','train_loss','test_loss','train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse','train_rot_mse',
-                               'test_rot_mse',  'train_trans_mse', 'test_trans_mse', 'train_trans_mae', 'test_trans_mae', 'train_rot_mae', 'test_rot_mae'])
+                              # 'test_rot_mse',  'train_trans_mse', 'test_trans_mse', 'train_trans_mae', 'test_trans_mae', 'train_rot_mae', 'test_rot_mae'])
         #df['epoch']=epoch_out
         #df['train_loss']=train_loss
         #df['test_loss']=test_loss
