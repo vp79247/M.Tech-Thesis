@@ -22,6 +22,9 @@ from tensorboardX import SummaryWriter
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import torch
+import gc
+del variables
+gc.collect()
 torch.cuda.empty_cache()
 
 
@@ -54,6 +57,9 @@ def _init_(args):
 
 def test_one_epoch(args, net, test_loader):
     torch.cuda.empty_cache()
+    
+    del variables
+    gc.collect()
     net.eval()
     mse_ab = 0
     mae_ab = 0
@@ -78,6 +84,8 @@ def test_one_epoch(args, net, test_loader):
 
     for src, target, rotation_ab, translation_ab, rotation_ba, translation_ba, euler_ab, euler_ba in tqdm(test_loader):
         torch.cuda.empty_cache()
+        del variables
+        gc.collect()
         src = src.cuda()
         target = target.cuda()
         rotation_ab = rotation_ab.cuda()
@@ -160,6 +168,8 @@ def test_one_epoch(args, net, test_loader):
 
 def train_one_epoch(args, net, train_loader, opt):
     torch.cuda.empty_cache()
+    del variables
+    gc.collect()
     net.train()
 
     mse_ab = 0
@@ -185,6 +195,8 @@ def train_one_epoch(args, net, train_loader, opt):
 
     for src, target, rotation_ab, translation_ab, rotation_ba, translation_ba, euler_ab, euler_ba in tqdm(train_loader):
         torch.cuda.empty_cache()
+        del variables
+        gc.collect()
         src = src.cuda()
         target = target.cuda()
         rotation_ab = rotation_ab.cuda()
@@ -263,6 +275,8 @@ def train_one_epoch(args, net, train_loader, opt):
 
 def test(args, net, test_loader, boardio, textio):
     torch.cuda.empty_cache()
+    del variables
+    gc.collect()
     src_test,tgt_test,\
     test_loss, test_cycle_loss, \
     test_mse_ab, test_mae_ab, test_mse_ba, test_mae_ba, test_rotations_ab, test_translations_ab, \
@@ -304,6 +318,8 @@ def test(args, net, test_loader, boardio, textio):
 
 def train(args, net, train_loader, test_loader, boardio, textio):
     torch.cuda.empty_cache()
+    del variables
+    gc.collect()
     if args.use_sgd:
         print("Use SGD")
         opt = optim.SGD(net.parameters(), lr=args.lr * 100, momentum=args.momentum, weight_decay=1e-4)
@@ -357,6 +373,8 @@ def train(args, net, train_loader, test_loader, boardio, textio):
 
     for epoch in range(args.epochs):
         torch.cuda.empty_cache()
+        del variables
+        gc.collect()
         scheduler.step()
         src_train,tgt_train,\
         train_loss, train_cycle_loss, \
@@ -616,6 +634,8 @@ def train(args, net, train_loader, test_loader, boardio, textio):
 
 def main():
     torch.cuda.empty_cache()
+    del variables
+    gc.collect()
     parser = argparse.ArgumentParser(description='Point Cloud Registration')
     parser.add_argument('--exp_name', type=str, default='exp', metavar='N',
                         help='Name of the experiment')
