@@ -44,7 +44,7 @@ def _init_(args):
         os.makedirs('checkpoints/' + args.exp_name + '/' + 'models')
     os.system('cp main.py checkpoints' + '/' + args.exp_name + '/' + 'main.py.backup')
     os.system('cp model.py checkpoints' + '/' + args.exp_name + '/' + 'model.py.backup')
-    os.system('cp data.py checkpoints' + '/' + args.exp_name + '/' + 'data.py.backup')
+    os.system('cp shapenet.py checkpoints' + '/' + args.exp_name + '/' + 'shapenet.py.backup')
 
 
 def test_one_epoch(args, net, test_loader):
