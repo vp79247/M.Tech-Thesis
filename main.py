@@ -528,13 +528,13 @@ def main():
     parser.add_argument('--head', type=str, default='svd', metavar='N',
                         choices=['mlp', 'svd', ],
                         help='Head to use, [mlp, svd]')
-    parser.add_argument('--emb_dims', type=int, default=512, metavar='N',
+    parser.add_argument('--emb_dims', type=int, default=1024, metavar='N',
                         help='Dimension of embeddings')
     parser.add_argument('--n_blocks', type=int, default=1, metavar='N',
                         help='Num of blocks of encoder&decoder')
     parser.add_argument('--n_heads', type=int, default=4, metavar='N',
                         help='Num of heads in multiheadedattention')
-    parser.add_argument('--ff_dims', type=int, default=512, metavar='N',
+    parser.add_argument('--ff_dims', type=int, default=256, metavar='N',
                         help='Num of dimensions of fc in transformer')
     parser.add_argument('--dropout', type=float, default=0.0, metavar='N',
                         help='Dropout ratio in transformer')
