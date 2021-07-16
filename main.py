@@ -528,7 +528,7 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         else:
             torch.save(net.state_dict(), 'checkpoints/%s/models/model.%d.t7' % (args.exp_name, epoch))
         gc.collect()
-    df=pd.DataFrame('epoch','train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse']
+    df=pd.DataFrame(columns=['epoch','train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse'])
     df['epoch']=epoch_out
     df['train_rmse']=train_rmse_out
     df['test_rmse']=test_rmse_out    
