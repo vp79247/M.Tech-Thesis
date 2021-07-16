@@ -315,6 +315,14 @@ def train(args, net, train_loader, test_loader, boardio, textio):
     best_test_t_mse_ba = np.inf
     best_test_t_rmse_ba = np.inf
     best_test_t_mae_ba = np.inf
+    
+    epoch_out=[]
+    train_rmse_out=[]
+    train_rot_rmse_out=[]
+    train_trans_rmse_out=[]
+    test_rmse_out=[]
+    test_rot_rmse_out=[]
+    test_trans_rmse_out=[]
 
     for epoch in range(args.epochs):
         scheduler.step()
@@ -504,12 +512,31 @@ def train(args, net, train_loader, test_loader, boardio, textio):
         boardio.add_scalar('B->A/best_test/translation/MSE', best_test_t_mse_ba, epoch)
         boardio.add_scalar('B->A/best_test/translation/RMSE', best_test_t_rmse_ba, epoch)
         boardio.add_scalar('B->A/best_test/translation/MAE', best_test_t_mae_ba, epoch)
+        
+        epoch_out.append(epoch)
+        train_rmse_out.append(train_rmse_ab)
+        test_rmse_out.append(test_rmse_ab)
+        train_rot_rmse_out.append(train_r_rmse_ab)
+        test_rot_rmse_out.append(test_r_rmse_ab)
+        train_trans_rmse_out.append(train_t_rmse_ab)
+        test_trans_rmse_out.append(test_t_rmse_ab)
+        
+        
 
         if torch.cuda.device_count() > 1:
             torch.save(net.module.state_dict(), 'checkpoints/%s/models/model.%d.t7' % (args.exp_name, epoch))
         else:
             torch.save(net.state_dict(), 'checkpoints/%s/models/model.%d.t7' % (args.exp_name, epoch))
         gc.collect()
+    df=pd.DataFrame('epoch','train_rmse','test_rmse','train_rot_rmse','test_rot_rmse','train_trans_rmse','test_trans_rmse']
+    df['epoch']=epoch_out
+    df['train_rmse']=train_rmse_out
+    df['test_rmse']=test_rmse_out    
+    df['train_rot_rmse']=train_rot_rmse_out
+    df['test_rot_rmse']=test_rot_rmse_out
+    df['train_trans_rmse']=train_trans_rmse_out
+    df['test_trans_rmse']=test_trans_rmse_out
+    df.to_csv('df.csv')
 
 
 def main():
