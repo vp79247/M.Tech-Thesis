@@ -18,6 +18,7 @@ import numpy as np
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
 from tqdm import tqdm
+import pandas as pd
 
 
 # Part of the code is referred from: https://github.com/floodsung/LearningToCompare_FSL
