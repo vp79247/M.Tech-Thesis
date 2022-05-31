@@ -597,7 +597,7 @@ def main():
                         help='enables CUDA training')
     parser.add_argument('--seed', type=int, default=1234, metavar='S',
                         help='random seed (default: 1)')
-    parser.add_argument('--eval', action='store_true', default=True,
+    parser.add_argument('--eval', action='store_true', default=False,
                         help='evaluate the model')
     parser.add_argument('--cycle', type=bool, default=False, metavar='N',
                         help='Whether to use cycle consistency')
