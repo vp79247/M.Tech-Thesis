@@ -250,6 +250,21 @@ def test(args, net, test_loader, boardio, textio):
     test_rotations_ab_pred, \
     test_translations_ab_pred, test_rotations_ba, test_translations_ba, test_rotations_ba_pred, \
     test_translations_ba_pred, test_eulers_ab, test_eulers_ba, src, target = test_one_epoch(args, net, test_loader)
+    
+    src1 = np.array(src)
+    target1 = np.array(target)
+    test_rotations_ab1 = np.array(test_rotations_ab)
+    test_translations_ab1 = np.array(test_translations_ab)
+    test_rotations_ab_pred1 = np.array(test_rotations_ab_pred)
+    test_translations_ab_pred1 = np.array(test_translations_ab_pred)
+    
+    np.save('src1.npy',src1)
+    np.save('target1.npy',target1)
+    np.save('test_rotations_ab1.npy', test_rotations_ab1)
+    np.save('test_translations_ab1', test_translations_ab1)
+    np.save('test_rotations_ab_pred1', test_rotations_ab_pred1)
+    np.save('test_translations_ab_pred1', test_translations_ab_pred1)
+    
     test_rmse_ab = np.sqrt(test_mse_ab)
     test_rmse_ba = np.sqrt(test_mse_ba)
 
