@@ -141,7 +141,7 @@ def test_one_epoch(args, net, test_loader):
            mse_ab * 1.0 / num_examples, mae_ab * 1.0 / num_examples, \
            mse_ba * 1.0 / num_examples, mae_ba * 1.0 / num_examples, rotations_ab, \
            translations_ab, rotations_ab_pred, translations_ab_pred, rotations_ba, \
-           translations_ba, rotations_ba_pred, translations_ba_pred, eulers_ab, eulers_ba
+           translations_ba, rotations_ba_pred, translations_ba_pred, eulers_ab, eulers_ba, src, target
 
 
 def train_one_epoch(args, net, train_loader, opt):
@@ -249,7 +249,7 @@ def test(args, net, test_loader, boardio, textio):
     test_mse_ab, test_mae_ab, test_mse_ba, test_mae_ba, test_rotations_ab, test_translations_ab, \
     test_rotations_ab_pred, \
     test_translations_ab_pred, test_rotations_ba, test_translations_ba, test_rotations_ba_pred, \
-    test_translations_ba_pred, test_eulers_ab, test_eulers_ba = test_one_epoch(args, net, test_loader)
+    test_translations_ba_pred, test_eulers_ab, test_eulers_ba, src, target = test_one_epoch(args, net, test_loader)
     test_rmse_ab = np.sqrt(test_mse_ab)
     test_rmse_ba = np.sqrt(test_mse_ba)
 
